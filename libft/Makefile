@@ -6,7 +6,7 @@
 #    By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/18 17:12:33 by kyuki             #+#    #+#              #
-#    Updated: 2021/08/04 00:36:03 by kyuki            ###   ########.fr        #
+#    Updated: 2021/08/04 08:51:36 by kyuki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ endif
 
 SRCDIR	?=
 INCDIR	?=	-L./libft -lft
-OBJDIR	?= ./obj
+OBJDIR	?= ./objs
 DPSDIR	?= ./dps
 
 #-----------SET SRC INFO----------#

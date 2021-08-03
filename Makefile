@@ -169,7 +169,7 @@ endif
 #-----------SET DIRECTORY--------#
 SRCDIR	?= ./srcs
 INCDIR	?= -L./srcs philosopher.h
-OBJDIR	?= ./obj
+OBJDIR	?= ./objs
 DPSDIR	?= ./dps
 
 #-----------SET SRCS-------------#
