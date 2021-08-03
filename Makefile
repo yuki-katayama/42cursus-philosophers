@@ -231,7 +231,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 -include $(DPS)
 
 $(NAME):	$(OBJS)
-			@$(MAKE) -C libft/.
+			@$(MAKE) -s -C libft/.
 			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
 			@$(CC) $(OBJS) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
 			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
@@ -254,7 +254,7 @@ clean	: ## Remove object
 
 .PHONY: fclean
 fclean	:	clean ## Remove object and static
-			@$(MAKE) fclean -C ./libft
+			@$(MAKE) fclean -s -C ./libft
 			@$(RM) $(NAME)
 			@echo "$(ESC_RED)philosopher: '"$(NAME)"' has been deleted. $(ESC_DEFAULT)🗑️"
 
