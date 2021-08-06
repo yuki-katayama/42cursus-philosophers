@@ -44,7 +44,7 @@ static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 	info->times.time_eat = ft_atoi(argv[3]);
 	info->times.time_sleep = ft_atoi(argv[4]);
 	if ((info->num_philo < 1 \
-		|| info->num_philo > 31000) \
+		|| info->num_philo > 200) \
 		|| info->times.time_die < 10 \
 		|| info->times.time_eat < 50 \
 		|| info->times.time_sleep < 50)
