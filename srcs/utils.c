@@ -27,7 +27,7 @@ int	ft_action_usleep(long int time, t_philo *philo)
 			return (ERROR);
 		if ((j - i) >= time)
 			break ;
-		if (usleep(50) == -1)
+		if (usleep(1000) == -1)
 			return (ft_error(8));
 	}
 	return (0);

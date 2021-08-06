@@ -23,7 +23,7 @@ void	*ft_monitor(void *p)
 		elapsed_time = ft_gettime(philo) - philo->time_last_eat;
 		if (ft_philo_is_died(philo, elapsed_time))
 			return (NULL);
-		if (usleep(10) == -1)
+		if (usleep(200) == -1)
 		{
 			pthread_mutex_unlock(&philo->info->died);
 			return ((void *)(size_t)ft_error(8));
