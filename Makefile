@@ -200,7 +200,9 @@ CFLAGS	?= -Wall -Wextra -Werror -g
 
 VALFLAGS ?= --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all --error-exitcode=666
 
-SANFLAGS ?=	-g -fsanitize=address
+SANFLAGS1 ?=	-g -fsanitize=address
+
+SANFLAGS2 ?=	-g -fsanitize=thread
 
 #-------------SET VARIEBLE-----------#
 NAME	?=	philo
@@ -243,7 +245,22 @@ val	:	${OBJS} ## Run valgrind
 		@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
 		@$(CC) $(OBJS) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
 		@echo "$(ESC_GREEN) '$(NAME)' was created. $(ESC_DEFAULT)✅"
-		$(VALGRIND) $(VALFLAGS) ./philo 4 400 200 200
+		$(VALGRIND) $(VALFLAGS) ./philo 4 400 200 200 4
+
+
+.PHONY: san1
+san1	:	${OBJS} ## Run sanitize using addres
+			@$(MAKE) -s -C libft/.
+			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
+			@$(CC) $(OBJS) $(SANFLAGS1) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
+			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
+
+.PHONY: san2
+san2	:	${OBJS} ## Run sanitize using thread
+			@$(MAKE) -s -C libft/.
+			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
+			@$(CC) $(OBJS) $(SANFLAGS2) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
+			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
 
 .PHONY: clean
 clean	: ## Remove object
