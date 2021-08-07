@@ -8,7 +8,7 @@ static int	ft_philo_is_died(t_philo *philo, long int elapsed_time)
 	{
 		if (philo->info->status.died == FALSE)
 		{
-			if(pthread_mutex_unlock(&philo->info->status.died_m) != 0)
+			if(pthread_mutex_unlock(&philo->info->status.finish_m) != 0)
 				ft_error(8);
 			ft_output(philo, DEAD);
 		}
@@ -30,7 +30,7 @@ void	*ft_monitor(void *p)
 			return (NULL);
 		if (usleep(200) == -1)
 		{
-			pthread_mutex_unlock(&philo->info->status.died_m);
+			pthread_mutex_unlock(&philo->info->status.finish_m);
 			return ((void *)(size_t)ft_error(8));
 		}
 	}
@@ -43,12 +43,12 @@ int	ft_start_monitor(t_philo *philo)
 
 	if (pthread_create(&thread, NULL, &ft_monitor, philo) != 0)
 	{
-		pthread_mutex_unlock(&philo->info->status.died_m);
+		pthread_mutex_unlock(&philo->info->status.finish_m);
 		return (ft_error(4));
 	}
 	if (pthread_detach(thread) != 0)
 	{
-		pthread_mutex_unlock(&philo->info->status.died_m);
+		pthread_mutex_unlock(&philo->info->status.finish_m);
 		return (ft_error(5));
 	}
 	return (0);
