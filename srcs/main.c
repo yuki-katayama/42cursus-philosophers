@@ -58,5 +58,6 @@ int main(int argc, char **argv)
 	if (pthread_mutex_unlock(&info.status.died_m))
 		return (ft_error(7));
 	ft_exit(&info);
+	usleep(1000000);
 	return (0);
 }
