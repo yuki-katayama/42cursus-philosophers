@@ -18,7 +18,10 @@ int	ft_down_forks(t_philo *philo)
 	if (ft_m_unlock(philo->right, &philo->info->status.died_m) == ERROR
 		|| ft_m_unlock(philo->left, &philo->info->status.died_m) == ERROR)
 		return (ERROR);
-	if (ft_action_usleep(philo->info->times.time_sleep, philo) == ERROR)
-		return (ERROR);
+	if (philo->info->status.died == FALSE)
+	{
+		if (ft_action_usleep(philo->info->times.time_sleep, philo) == ERROR)
+			return (ERROR);
+	}
 	return (0);
 }
