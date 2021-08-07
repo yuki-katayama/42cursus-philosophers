@@ -45,7 +45,7 @@ int	ft_output(t_philo *philo, int serial)
 	int	err;
 
 	err = 0;
-	if (ft_m_lock(&philo->info->status.writing, &philo->info->status.died_m) == ERROR)
+	if (ft_m_lock(&philo->info->status.writing, &philo->info->status.finish_m) == ERROR)
 		return (ERROR);
 	if (philo->info->status.died == FALSE)
 	{
@@ -64,7 +64,7 @@ int	ft_output(t_philo *philo, int serial)
 		}
 	}
 	if ((err != 0) || (ft_m_unlock(&philo->info->status.writing, \
-						&philo->info->status.died_m) == ERROR))
+						&philo->info->status.finish_m) == ERROR))
 		return (ERROR);
 	return (0);
 }

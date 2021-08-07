@@ -12,7 +12,7 @@ static void	*philosopher(void *arg)
 	{
 		if (usleep(500) == -1)
 		{
-			pthread_mutex_unlock(&philo->info->status.died_m);
+			pthread_mutex_unlock(&philo->info->status.finish_m);
 			return ((void *)(size_t)ft_error(8));
 		}
 	}
@@ -23,6 +23,14 @@ static void	*philosopher(void *arg)
 			|| ft_down_forks(philo) == ERROR
 			|| ft_output(philo, THINK) == ERROR)
 			return ((void *)(size_t)ERROR);
+	}
+	pthread_mutex_lock(&philo->info->status.philos_died_m);
+	philo->info->status.philos_died += 1;
+	pthread_mutex_unlock(&philo->info->status.philos_died_m);
+	if (philo->info->status.philos_died == philo->info->num_philo)
+	{
+		if(pthread_mutex_unlock(&philo->info->status.finish_m) != 0)
+				ft_error(8);
 	}
 	return (NULL);
 }
@@ -53,9 +61,9 @@ int main(int argc, char **argv)
 		return (ERROR);
 	if (ft_start(&info) == ERROR)
 		return (ERROR);
-	if (pthread_mutex_lock(&info.status.died_m))
+	if (pthread_mutex_lock(&info.status.finish_m))
 		return (ft_error(6));
-	if (pthread_mutex_unlock(&info.status.died_m))
+	if (pthread_mutex_unlock(&info.status.finish_m))
 		return (ft_error(7));
 	ft_exit(&info);
 	usleep(1000000);
