@@ -16,7 +16,7 @@ static void	*philosopher(void *arg)
 			return ((void *)(size_t)ft_error(8));
 		}
 	}
-	while (1)
+	while (philo->info->status.died == FALSE)
 	{
 		if (ft_take_forks(philo) == ERROR
 			|| ft_eat(philo) == ERROR
