@@ -1,13 +1,25 @@
 #include "philosopher.h"
 
+static int	ft_philo_action_and_monitor(t_philo *philo)
+{
+	if (ft_start_monitor(philo))
+		return (0);
+	while (philo->info->status.died == FALSE)
+	{
+		if (ft_take_forks(philo) == ERROR
+			|| ft_eat(philo) == ERROR
+			|| ft_down_forks(philo) == ERROR
+			|| ft_output(philo, THINK) == ERROR)
+			return (ERROR);
+	}
+	return (0);
+}
+
 static void	*philosopher(void *arg)
 {
 	t_philo	*philo;
 
 	philo = arg;
-	philo->time_last_eat = ft_gettime(philo);
-	if (ft_start_monitor(philo))
-		return (NULL);
 	if (philo->id % 2 == 0)
 	{
 		if (usleep(500) == -1)
@@ -16,21 +28,16 @@ static void	*philosopher(void *arg)
 			return ((void *)(size_t)ft_error(8));
 		}
 	}
-	while (philo->info->status.died == FALSE)
-	{
-		if (ft_take_forks(philo) == ERROR
-			|| ft_eat(philo) == ERROR
-			|| ft_down_forks(philo) == ERROR
-			|| ft_output(philo, THINK) == ERROR)
-			return ((void *)(size_t)ERROR);
-	}
+	philo->time_last_eat = ft_gettime(philo);
+	if (ft_philo_action_and_monitor(philo) == ERROR)
+		return ((void *)(size_t)ERROR);
 	pthread_mutex_lock(&philo->info->status.philos_died_m);
 	philo->info->status.philos_died += 1;
 	pthread_mutex_unlock(&philo->info->status.philos_died_m);
 	if (philo->info->status.philos_died == philo->info->num_philo)
 	{
-		if(pthread_mutex_unlock(&philo->info->status.finish_m) != 0)
-				ft_error(8);
+		if (pthread_mutex_unlock(&philo->info->status.finish_m) != 0)
+			ft_error(8);
 	}
 	return (NULL);
 }
@@ -51,7 +58,7 @@ static int	ft_start(t_info *info)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_info	info;
 
