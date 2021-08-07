@@ -3,29 +3,28 @@
 static int	ft_init_philos(t_info *info, int limit_eats)
 {
 	size_t			i;
+	pthread_mutex_t	eating_m;
 
 	i = -1;
 	if (!(ft_malloc_p((void **)&info->philo, sizeof(t_philo) * info->num_philo))
 		|| !(ft_malloc_p((void **)&info->threads, \
 							sizeof(pthread_t) * info->num_philo))
 		|| !(ft_malloc_p((void **)&info->forks, \
-							sizeof(pthread_mutex_t) * info->num_philo))
-		|| !(ft_malloc_p((void **)&info->eats_m, \
-					sizeof(pthread_mutex_t) * info->num_philo)))
+							sizeof(pthread_mutex_t) * info->num_philo)))
 		return (ft_error(1));
 	while (++i < info->num_philo)
 	{
 		if (pthread_mutex_init(&info->forks[i], NULL) != 0
-			|| pthread_mutex_init(&info->eats_m[i], NULL) != 0)
+			|| pthread_mutex_init(&eating_m, NULL) != 0)
 			return (ft_error(2));
 		info->philo[i].eating = FALSE;
 		info->philo[i].id = i + 1;
 		info->philo[i].left = &(info->forks[i]);
 		info->philo[i].right = &(info->forks[(i + 1) % info->num_philo]);
-		info->philo[i].eating_m = &info->eats_m[i];
 		info->philo[i].info = info;
 		info->philo[i].time_last_eat = 0;
 		info->philo[i].limit_eats = limit_eats;
+		info->philo[i].eating_m = &eating_m;
 	}
 	return (0);
 }

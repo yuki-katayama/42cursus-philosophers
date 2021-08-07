@@ -46,7 +46,7 @@ typedef struct s_status
 {
 	pthread_mutex_t	died_m;
 	pthread_mutex_t	writing;
-	size_t			philos_limit_eats;
+	size_t				philos_limit_eats;
 	bool			limit_eats_mode;
 	bool			died;
 }				t_status;
@@ -54,7 +54,6 @@ typedef struct s_status
 typedef struct s_info
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t *eats_m;
 	pthread_t		*threads;
 	size_t			num_philo;
 	t_status		status;
