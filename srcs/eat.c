@@ -2,12 +2,14 @@
 
 int ft_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->info->philo[(philo->id + 1) %
-						philo->info->num_philo].eating_m);
-	pthread_mutex_lock(philo->info->philo[(philo->id - 1) %
-						philo->info->num_philo].eating_m);
 	if (philo->info->status.died == FALSE)
 	{
+		pthread_mutex_lock(philo->info->philo[(philo->id + 1) %
+											  philo->info->num_philo]
+							   .eating_m);
+		pthread_mutex_lock(philo->info->philo[(philo->id - 1) %
+											  philo->info->num_philo]
+							   .eating_m);
 		philo->eating = 1;
 		philo->time_last_eat = ft_gettime(philo);
 		if (ft_output(philo, EAT) == ERROR)
