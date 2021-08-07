@@ -6,7 +6,7 @@ long int	ft_gettime(t_philo *philo)
 
 	if (gettimeofday(&tv, NULL) != 0)
 	{
-		pthread_mutex_unlock(&philo->info->died);
+		pthread_mutex_unlock(&philo->info->status.died);
 		return (ft_error(10));
 	}
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));

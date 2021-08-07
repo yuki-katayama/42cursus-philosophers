@@ -3,9 +3,9 @@
 static int	ft_philo_is_died(t_philo *philo, long int elapsed_time)
 {
 	if ((!(philo->eating) && elapsed_time >= philo->info->times.time_die)
-		|| (philo->info->limit_eats_mode && philo->limit_eats == 0))
+		|| (philo->info->status.limit_eats_mode && philo->limit_eats == 0))
 	{
-		pthread_mutex_unlock(&philo->info->died);
+		pthread_mutex_unlock(&philo->info->status.died);
 		ft_output(philo, DEAD);
 		return (1);
 	}
@@ -25,7 +25,7 @@ void	*ft_monitor(void *p)
 			return (NULL);
 		if (usleep(200) == -1)
 		{
-			pthread_mutex_unlock(&philo->info->died);
+			pthread_mutex_unlock(&philo->info->status.died);
 			return ((void *)(size_t)ft_error(8));
 		}
 	}
@@ -38,12 +38,12 @@ int	ft_start_monitor(t_philo *philo)
 
 	if (pthread_create(&thread, NULL, &ft_monitor, philo) != 0)
 	{
-		pthread_mutex_unlock(&philo->info->died);
+		pthread_mutex_unlock(&philo->info->status.died);
 		return (ft_error(4));
 	}
 	if (pthread_detach(thread) != 0)
 	{
-		pthread_mutex_unlock(&philo->info->died);
+		pthread_mutex_unlock(&philo->info->status.died);
 		return (ft_error(5));
 	}
 	return (0);

@@ -9,7 +9,7 @@ void	ft_exit(t_info *info)
 	// while (++i < info->num_philo)
 	// {
 	// }
-	// if (pthread_mutex_destroy(&info->writing))
+	// if (pthread_mutex_destroy(&info->status.writing))
 	// {
 	// 	printf("%db\n", err);
 	// 	ft_error(11);
@@ -20,11 +20,11 @@ void	ft_exit(t_info *info)
 	// 		// printf("%da\n", err);
 	// 		ft_error(11);
 	// 	}
-	if (pthread_mutex_destroy(&info->died))
-	{
-		// printf("%dc\n", err);
-		ft_error(11);
-	}
+	// if (pthread_mutex_destroy(&info->status.died))
+	// {
+	// 	// printf("%dc\n", err);
+	// 	ft_error(11);
+	// }
 	free(info->forks);
 	free(info->threads);
 	free(info->philo);

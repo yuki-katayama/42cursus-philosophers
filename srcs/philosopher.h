@@ -42,16 +42,21 @@ typedef struct s_philo
 	struct s_info	*info;
 }				t_philo;
 
-typedef struct s_info
+typedef struct s_status
 {
-	bool			limit_eats_mode;
-	bool			valid_write;
-	size_t			num_philo;
-	t_philo			*philo;
-	pthread_mutex_t	*forks;
 	pthread_mutex_t	died;
 	pthread_mutex_t	writing;
+	bool			limit_eats_mode;
+	bool			valid_write;
+}				t_status;
+
+typedef struct s_info
+{
+	pthread_mutex_t	*forks;
 	pthread_t		*threads;
+	size_t			num_philo;
+	t_status		status;
+	t_philo			*philo;
 	t_time			times;
 }				t_info;
 
