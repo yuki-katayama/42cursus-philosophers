@@ -24,6 +24,14 @@ static void	*philosopher(void *arg)
 			|| ft_output(philo, THINK) == ERROR)
 			return ((void *)(size_t)ERROR);
 	}
+	pthread_mutex_lock(&philo->info->status.philos_died_m);
+	philo->info->status.philos_died += 1;
+	pthread_mutex_unlock(&philo->info->status.philos_died_m);
+	if (philo->info->status.philos_died == philo->info->num_philo)
+	{
+		if(pthread_mutex_unlock(&philo->info->status.finish_m) != 0)
+				ft_error(8);
+	}
 	return (NULL);
 }
 

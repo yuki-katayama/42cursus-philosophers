@@ -33,13 +33,15 @@ static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 {
 	*info = (t_info){};
 	if (pthread_mutex_init(&info->status.finish_m, NULL) != 0
-		|| pthread_mutex_init(&info->status.writing, NULL) != 0)
+		|| pthread_mutex_init(&info->status.writing, NULL) != 0
+		|| pthread_mutex_init(&info->status.philos_died_m, NULL) != 0)
 		return (ft_error(2));
 	if (pthread_mutex_lock(&info->status.finish_m))
 		return (ft_error(6));
 	info->status.limit_eats_mode = FALSE;
 	info->status.died = FALSE;
 	info->status.philos_limit_eats = 0;
+	info->status.philos_died = 0;
 	info->num_philo = ft_atoi(argv[1]);
 	info->times.time_die = ft_atoi(argv[2]);
 	info->times.time_eat = ft_atoi(argv[3]);
