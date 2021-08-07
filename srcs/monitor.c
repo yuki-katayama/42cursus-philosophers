@@ -6,8 +6,12 @@ static int	ft_philo_is_died(t_philo *philo, long int elapsed_time)
 		|| (philo->info->status.limit_eats_mode
 			&& philo->info->status.philos_limit_eats >= philo->info->num_philo))
 	{
-		pthread_mutex_unlock(&philo->info->status.died_m);
-		ft_output(philo, DEAD);
+		if (philo->info->status.died == FALSE)
+		{
+			if(pthread_mutex_unlock(&philo->info->status.died_m) != 0)
+				ft_error(8);
+			ft_output(philo, DEAD);
+		}
 		return (1);
 	}
 	return (0);
