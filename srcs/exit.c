@@ -25,6 +25,7 @@ void ft_exit(t_info *info)
 		printf("%dc\n", err);
 		ft_error(11);
 	}
+	free(info->eats_m);
 	free(info->forks);
 	free(info->threads);
 	free(info->philo);
