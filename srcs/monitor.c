@@ -3,7 +3,8 @@
 static int	ft_philo_is_died(t_philo *philo, long int elapsed_time)
 {
 	if ((!(philo->eating) && elapsed_time >= philo->info->times.time_die)
-		|| (philo->info->status.limit_eats_mode && philo->limit_eats == 0))
+		|| (philo->info->status.limit_eats_mode
+			&& philo->info->status.philos_limit_eats >= philo->info->num_philo))
 	{
 		pthread_mutex_unlock(&philo->info->status.died_m);
 		ft_output(philo, DEAD);

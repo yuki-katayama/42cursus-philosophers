@@ -17,6 +17,8 @@ int	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->info->philo[(philo->id + 1) \
 						% philo->info->num_philo].eating_m);
 	philo->limit_eats -= 1;
+	if (philo->limit_eats == 0)
+		philo->info->status.philos_limit_eats += 1;
 	philo->eating = 0;
 	return (0);
 }

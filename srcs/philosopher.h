@@ -46,6 +46,7 @@ typedef struct s_status
 {
 	pthread_mutex_t	died_m;
 	pthread_mutex_t	writing;
+	size_t				philos_limit_eats;
 	bool			limit_eats_mode;
 	bool			died;
 }				t_status;
