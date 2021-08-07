@@ -45,8 +45,7 @@ int	ft_output(t_philo *philo, int serial)
 	int	err;
 
 	err = 0;
-	if (ft_m_lock(&philo->info->status.writing, &philo->info->status.finish_m) == ERROR)
-		return (ERROR);
+	pthread_mutex_lock(&philo->info->status.writing);
 	if (philo->info->status.died == FALSE)
 	{
 		if (serial == FORK)
