@@ -44,10 +44,10 @@ typedef struct s_philo
 
 typedef struct s_status
 {
-	pthread_mutex_t	died;
+	pthread_mutex_t	died_m;
 	pthread_mutex_t	writing;
 	bool			limit_eats_mode;
-	bool			valid_write;
+	bool			died;
 }				t_status;
 
 typedef struct s_info
@@ -85,8 +85,8 @@ void		ft_exit(t_info *info);
 
 // utils
 long int	ft_gettime(t_philo *philo);
-int			ft_m_unlock(pthread_mutex_t *m, pthread_mutex_t *m_died);
-int			ft_m_lock(pthread_mutex_t *m, pthread_mutex_t *m_died);
+int			ft_m_unlock(pthread_mutex_t *m, pthread_mutex_t *died_m);
+int			ft_m_lock(pthread_mutex_t *m, pthread_mutex_t *died_m);
 int			ft_action_usleep(long int limit_time, t_philo *philo);
 
 #endif

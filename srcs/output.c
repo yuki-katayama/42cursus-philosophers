@@ -45,9 +45,9 @@ int	ft_output(t_philo *philo, int serial)
 	int	err;
 
 	err = 0;
-	if (ft_m_lock(&philo->info->status.writing, &philo->info->status.died) == ERROR)
+	if (ft_m_lock(&philo->info->status.writing, &philo->info->status.died_m) == ERROR)
 		return (ERROR);
-	if (philo->info->status.valid_write == TRUE)
+	if (philo->info->status.died == TRUE)
 	{
 		if (serial == FORK)
 			err = ft_output2("has taken a fork\n", ft_gettime(philo), philo->id);
@@ -60,11 +60,11 @@ int	ft_output(t_philo *philo, int serial)
 		else if (serial == DEAD)
 		{
 			err = ft_output2("died\n", ft_gettime(philo), philo->id);
-			philo->info->status.valid_write = FALSE;
+			philo->info->status.died = FALSE;
 		}
 	}
 	if ((err != 0) || (ft_m_unlock(&philo->info->status.writing, \
-						&philo->info->status.died) == ERROR))
+						&philo->info->status.died_m) == ERROR))
 		return (ERROR);
 	return (0);
 }

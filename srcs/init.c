@@ -32,13 +32,13 @@ static int	ft_init_philos(t_info *info, int limit_eats)
 static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 {
 	*info = (t_info){};
-	if (pthread_mutex_init(&info->status.died, NULL) != 0
+	if (pthread_mutex_init(&info->status.died_m, NULL) != 0
 		|| pthread_mutex_init(&info->status.writing, NULL) != 0)
 		return (ft_error(2));
-	if (pthread_mutex_lock(&info->status.died))
+	if (pthread_mutex_lock(&info->status.died_m))
 		return (ft_error(6));
 	info->status.limit_eats_mode = FALSE;
-	info->status.valid_write = TRUE;
+	info->status.died = TRUE;
 	info->num_philo = ft_atoi(argv[1]);
 	info->times.time_die = ft_atoi(argv[2]);
 	info->times.time_eat = ft_atoi(argv[3]);
