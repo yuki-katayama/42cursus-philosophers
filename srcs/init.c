@@ -38,7 +38,7 @@ static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 	if (pthread_mutex_lock(&info->status.died_m))
 		return (ft_error(6));
 	info->status.limit_eats_mode = FALSE;
-	info->status.died = TRUE;
+	info->status.died = FALSE;
 	info->status.philos_limit_eats = 0;
 	info->num_philo = ft_atoi(argv[1]);
 	info->times.time_die = ft_atoi(argv[2]);
