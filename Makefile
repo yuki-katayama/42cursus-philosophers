@@ -1,104 +1,3 @@
-# NAME	=	philo
-
-# CC		=	gcc
-
-# VALGRIND = valgrind
-
-# CFLAGS	=	
-
-# SANFLAGS1	=	-g -fsanitize=address
-# SANFLAGS2	=	-g -fsanitize=thread
-# SANFLAGS3	=	-g --tool=helgrind
-
-# VALFLAGS = --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all --error-exitcode=666
-
-# SRCDIR  = srcs/
-# BSRCDIR  = bonus/
-
-# SRCNAME	=	main \
-# 			init \
-# 			utils \
-# 			eat \
-# 			forks \
-# 			output \
-# 			monitor \
-# 			error \
-# 			exit
-
-# BSRCNAME =	main \
-# 			init \
-# 			utils \
-# 			eat \
-# 			permission \
-# 			output \
-# 			monitor \
-# 			error \
-# 			exit
-
-# SRCS	=	$(addsuffix .c, $(addprefix $(SRCDIR), $(SRCNAME)))
-# BSRCS	=	$(addsuffix .c, $(addprefix $(BSRCDIR), $(BSRCNAME)))
-
-# OBJS	=	$(SRCS:.c=.o)
-# BOBJS	=	$(BSRCS:.c=.o)
-
-# ifeq ($(shell uname),Linux)
-#         PTHREADFLG = -lpthread
-# endif
-
-# .PHONY: all
-# all	:	$(NAME) ## Run compile
-
-# $(NAME)	:	${OBJS}
-# 			@$(MAKE) -C libft/.
-# 			@echo "\n\033[0;32mPhilosopher Compiling..."
-# 			@$(CC) -g ${OBJS} $(CFLAGS) libft/libft.a $(PTHREADFLG) -o ${NAME}
-# 			@@echo "Philosopher Complete\033[0m"
-
-# .PHONY: san
-# san	:	${OBJS} ## Run sanitize
-# 			$(MAKE) -C libft/.
-# 			@echo "\n\033[0;32mPhilosopher Compiling..."
-# 			$(CC) -g ${OBJS} $(SANFLAGS1) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o ${NAME}
-# 			@echo "Philosopher Complete\033[0m"
-
-# .PHONY: val
-# val	:	 ${OBJS} ## Run valgrind
-# 			$(VALGRIND) $(VALFLAGS) ./philosopher
-
-# .PHONY: clean
-# clean	:	## Remove object
-# 			@echo "\033[0;33mCleaning..."
-# 			$(MAKE) clean -C ./libft
-# 			$(RM) $(OBJS)
-# 			$(RM) $(BOBJS)
-# 			@echo "\033[0m"
-
-# .PHONY: fclean
-# fclean	:	clean ## Remove object and static
-# 			@echo "\033[0;33mRemoving executable..."
-# 			$(MAKE) fclean -C ./libft
-# 			$(RM) $(NAME)
-# 			@echo "\033[0m"
-
-# .PHONY: bonus # Run compile bonus
-# bonus	:	fclean ${BOBJS}
-# 			$(MAKE) -C libft/.
-# 			@echo "\n\033[0;32mPhilosopher Compiling..."
-# 			$(CC) -g ${BOBJS} $(CFLAGS) libft/libft.a $(PTHREADFLG) -o ${NAME}
-# 			@echo "Philosopher Complete\033[0m"
-
-# .PHONY: re
-# re	:	fclean all ## Retry cmpiles
-
-# .PHONY: test
-# test	:	## Retry test
-# 			./philosopher 5 1000 100 100
-
-# .PHONY: help
-# help	: ## Display this help
-# 	@grep -E '^[a-zA-Z1-9_-]+	:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
-
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -107,7 +6,7 @@
 #    By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/18 17:12:33 by kyuki             #+#    #+#              #
-#    Updated: 2021/08/02 12:35:31 by kyuki            ###   ########.fr        #
+#    Updated: 2021/08/07 19:56:04 by kyuki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -198,8 +97,6 @@ SRCS ?= $(addprefix $(SRCDIR)/, $(addsuffix .c, $(SRCNAME)))
 #-------------SET FLAGS--------------#
 CFLAGS	?= -Wall -Wextra -Werror -g
 
-VALFLAGS ?= --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all --error-exitcode=666
-
 SANFLAGS1 ?=	-g -fsanitize=address
 
 SANFLAGS2 ?=	-g -fsanitize=thread
@@ -208,8 +105,6 @@ SANFLAGS2 ?=	-g -fsanitize=thread
 NAME	?=	philo
 
 CC		?= gcc
-
-VALGRIND ?= valgrind
 
 RM		:=	rm -rf
 
@@ -222,7 +117,7 @@ endif
 #-------------------------------------#
 
 .PHONY: all
-all	:	$(NAME) # Run philo
+all	:	$(NAME) ## Run philo
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@-mkdir -p $(OBJDIR)
@@ -237,16 +132,6 @@ $(NAME):	$(OBJS)
 			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
 			@$(CC) $(OBJS) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
 			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
-
-
-.PHONY: val
-val	:	${OBJS} ## Run valgrind
-		@$(MAKE) -C libft/.
-		@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
-		@$(CC) $(OBJS) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
-		@echo "$(ESC_GREEN) '$(NAME)' was created. $(ESC_DEFAULT)✅"
-		$(VALGRIND) $(VALFLAGS) ./philo 4 400 200 200 4
-
 
 .PHONY: san1
 san1	:	${OBJS} ## Run sanitize using addres
@@ -276,7 +161,7 @@ fclean	:	clean ## Remove object and static
 			@echo "$(ESC_RED)philosopher: '"$(NAME)"' has been deleted. $(ESC_DEFAULT)🗑️"
 
 .PHONY: re
-re	:			fclean all ## Retry cmpiles
+re	:	fclean all ## Retry cmpiles
 
 .PHONY: help
 help	: ## Display this help

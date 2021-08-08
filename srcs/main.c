@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/07 19:57:50 by kyuki             #+#    #+#             */
+/*   Updated: 2021/08/08 21:39:20 by kyuki            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosopher.h"
 
 static int	ft_philo_action_and_monitor(t_philo *philo)
@@ -15,7 +27,7 @@ static int	ft_philo_action_and_monitor(t_philo *philo)
 	return (0);
 }
 
-static void	*philosopher(void *arg)
+static void	*ft_philosopher(void *arg)
 {
 	t_philo	*philo;
 
@@ -50,7 +62,7 @@ static int	ft_start(t_info *info)
 	while (++i < info->num_philo)
 	{
 		if (pthread_create(&info->threads[i], NULL, \
-				philosopher, (void *)&info->philo[i]))
+				ft_philosopher, (void *)&info->philo[i]))
 			return (ft_error(4));
 		if (pthread_detach(info->threads[i]))
 			return (ft_error(5));
