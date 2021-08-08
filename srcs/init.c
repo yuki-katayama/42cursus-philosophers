@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:53 by kyuki             #+#    #+#             */
-/*   Updated: 2021/08/08 22:12:03 by kyuki            ###   ########.fr       */
+/*   Updated: 2021/08/08 22:18:21 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 	info->times.time_die = ft_atoi(argv[2]);
 	info->times.time_eat = ft_atoi(argv[3]);
 	info->times.time_sleep = ft_atoi(argv[4]);
-	if ((info->num_philo < 1 \
+	if ((info->num_philo < 2 \
 		|| info->num_philo > 200) \
 		|| info->times.time_die < 5 \
 		|| info->times.time_eat < 1 \
