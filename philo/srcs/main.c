@@ -18,12 +18,16 @@ static int	ft_philo_action_and_monitor(t_philo *philo)
 		return (0);
 	while (philo->info->status.died == FALSE)
 	{
-		if (ft_take_forks(philo) == ERROR
-			|| ft_eat(philo) == ERROR
+		if (ft_take_forks(philo) == ERROR)
+			return (ERROR);
+		if (philo->info->num_philo == 1)
+			continue;
+		if (ft_eat(philo) == ERROR
 			|| ft_down_forks(philo) == ERROR
 			|| ft_output(philo, THINK) == ERROR)
-			return (ERROR);
+				return (ERROR);
 	}
+
 	return (0);
 }
 
@@ -42,7 +46,7 @@ static void	*ft_philosopher(void *arg)
 	}
 	philo->time_last_eat = ft_gettime(philo);
 	if (ft_philo_action_and_monitor(philo) == ERROR)
-		return ((void *)(size_t)ERROR);
+		exit(1);
 	pthread_mutex_lock(&philo->info->status.philos_died_m);
 	philo->info->status.philos_died += 1;
 	pthread_mutex_unlock(&philo->info->status.philos_died_m);

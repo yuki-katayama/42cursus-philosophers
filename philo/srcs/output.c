@@ -72,6 +72,8 @@ int	ft_output(t_philo *philo, int serial)
 		{
 			err = ft_output2("died\n", ft_gettime(philo), philo->id);
 			philo->info->status.died = TRUE;
+			if (philo->info->num_philo == 1)
+				ft_m_unlock(philo->right, &philo->info->status.finish_m);
 		}
 	}
 	if ((err != 0) || (ft_m_unlock(&philo->info->status.writing, \

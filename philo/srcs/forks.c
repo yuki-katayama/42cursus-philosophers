@@ -17,9 +17,15 @@ int	ft_take_forks(t_philo *philo)
 	if (ft_m_lock(philo->right, &philo->info->status.finish_m) == ERROR
 		|| ft_output(philo, FORK) == ERROR)
 		return (ERROR);
+	if (philo->info->num_philo == 1)
+	{
+		ft_m_lock(philo->right, &philo->info->status.finish_m);
+		return (0);
+	}
 	if (ft_m_lock(philo->left, &philo->info->status.finish_m) == ERROR
 		|| ft_output(philo, FORK) == ERROR)
 		return (ERROR);
+
 	return (0);
 }
 
