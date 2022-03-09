@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:46 by kyuki             #+#    #+#             */
-/*   Updated: 2022/03/09 12:50:48 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/03/09 15:02:11 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	ft_output(t_philo *philo, int serial)
 			err = ft_output2("is thinking\n", ft_gettime(philo), philo->id);
 		else if (serial == DEAD)
 		{
-			err = ft_output2("died\n", ft_gettime(philo), philo->id);
+			if (!philo->eating && (ft_gettime(philo) - philo->time_last_eat) >= philo->info->times.time_die)
+				err = ft_output2("died\n", ft_gettime(philo), philo->id);
 			philo->info->status.died = TRUE;
 			if (philo->info->num_philo == 1)
 				ft_m_unlock(philo->right, &philo->info->status.finish_m);
