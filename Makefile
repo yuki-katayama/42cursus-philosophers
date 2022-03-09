@@ -6,7 +6,7 @@
 #    By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/18 17:12:33 by kyuki             #+#    #+#              #
-#    Updated: 2021/08/07 19:56:04 by kyuki            ###   ########.fr        #
+#    Updated: 2022/03/09 12:39:37 by kyuki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,14 +120,19 @@ endif
 all	:	$(NAME) ## Run philo
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@-mkdir -p $(OBJDIR)
-	@-mkdir -p $(DPSDIR)
 	@$(CC) $(CFLAGS)  -MMD -MP -MF $(DPSDIR)/$(notdir $(<:.c=.d)) -c $< -o $@
 	@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_YELLOW)$< ⌛"
 
 -include $(DPS)
 
-$(NAME):	$(OBJS)
+
+$(OBJDIR):
+	@-mkdir -p $(OBJDIR)
+
+$(DPSDIR):
+	@-mkdir -p $(DPSDIR)
+
+$(NAME):	$(OBJDIR) $(DPSDIR) $(OBJS)
 			@$(MAKE) -s -C libft/.
 			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
 			@$(CC) $(OBJS) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
