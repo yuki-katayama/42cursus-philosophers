@@ -6,11 +6,37 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:39 by kyuki             #+#    #+#             */
-/*   Updated: 2021/08/07 19:57:40 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/04/11 14:48:22 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+int ft_usleep(useconds_t usec, pthread_mutex_t *m) {
+	if (usleep(usec) == -1)
+	{
+		pthread_mutex_unlock(m);
+		return (ft_error(8));
+	}
+	return (0);
+}
+
+int after_dead(t_info *info) {
+	info->status.philos_died += 1;
+	if (info->status.philos_died == info->num_philo)
+	{
+		if (pthread_mutex_unlock(&info->status.finish_m) != 0)
+			return (ft_error(8));
+	}
+	return (0);
+}
+
+void do_mtx(void *arg, pthread_mutex_t *m, int (*func)())
+{
+	pthread_mutex_lock(m);
+	func(arg);
+	pthread_mutex_unlock(m);
+}
 
 long int	ft_gettime(t_philo *philo)
 {

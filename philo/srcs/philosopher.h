@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:43 by kyuki             #+#    #+#             */
-/*   Updated: 2021/08/07 19:57:44 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/04/11 14:41:55 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int			ft_down_forks(t_philo *philo);
 
 //eat
 int			ft_eat(t_philo *philo);
+int ft_eat_action(t_philo *philo);
 
 //output
 int			ft_output(t_philo *philo, int serial);
@@ -103,5 +104,8 @@ long int	ft_gettime(t_philo *philo);
 int			ft_m_unlock(pthread_mutex_t *m, pthread_mutex_t *finish_m);
 int			ft_m_lock(pthread_mutex_t *m, pthread_mutex_t *finish_m);
 int			ft_action_usleep(long int limit_time, t_philo *philo);
+int  after_dead(t_info *info);
+int ft_usleep(useconds_t usec, pthread_mutex_t *m);
+void do_mtx(void *arg, pthread_mutex_t *m, int (*func)());
 
 #endif

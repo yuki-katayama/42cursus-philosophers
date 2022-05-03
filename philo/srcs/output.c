@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:46 by kyuki             #+#    #+#             */
-/*   Updated: 2022/03/09 15:02:11 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/04/22 12:10:23 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int	ft_output(t_philo *philo, int serial)
 		else if (serial == DEAD)
 		{
 			if (!philo->eating && (ft_gettime(philo) - philo->time_last_eat) >= philo->info->times.time_die)
+			{
 				err = ft_output2("died\n", ft_gettime(philo), philo->id);
+			}
 			philo->info->status.died = TRUE;
 			if (philo->info->num_philo == 1)
 				ft_m_unlock(philo->right, &philo->info->status.finish_m);

@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:48 by kyuki             #+#    #+#             */
-/*   Updated: 2022/03/09 14:30:43 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/04/15 08:59:34 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static int	ft_philo_is_died(t_philo *philo, long int elapsed_time)
 		|| (philo->info->status.died == TRUE))
 	{
 		if (philo->info->status.died == FALSE)
+		{
 			ft_output(philo, DEAD);
+		}
 		return (1);
 	}
 	return (0);

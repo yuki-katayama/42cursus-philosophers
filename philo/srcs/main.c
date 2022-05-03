@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/07 19:57:50 by kyuki             #+#    #+#             */
-/*   Updated: 2022/03/09 14:38:42 by kyuki            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "philosopher.h"
 
@@ -31,30 +20,19 @@ static int	ft_philo_action_and_monitor(t_philo *philo)
 	return (0);
 }
 
+
+
 static void	*ft_philosopher(void *arg)
 {
 	t_philo	*philo;
 
 	philo = arg;
 	if (philo->id % 2 == 0)
-	{
-		if (usleep(500) == -1)
-		{
-			pthread_mutex_unlock(&philo->info->status.finish_m);
-			return ((void *)(size_t)ft_error(8));
-		}
-	}
+		ft_usleep(500, &philo->info->status.finish_m);
 	philo->time_last_eat = ft_gettime(philo);
 	if (ft_philo_action_and_monitor(philo) == ERROR)
 		exit(1);
-	pthread_mutex_lock(&philo->info->status.philos_died_m);
-	philo->info->status.philos_died += 1;
-	pthread_mutex_unlock(&philo->info->status.philos_died_m);
-	if (philo->info->status.philos_died == philo->info->num_philo)
-	{
-		if (pthread_mutex_unlock(&philo->info->status.finish_m) != 0)
-			ft_error(8);
-	}
+	do_mtx(philo->info, &philo->info->status.philos_died_m, after_dead);
 	return (NULL);
 }
 
