@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:53 by kyuki             #+#    #+#             */
-/*   Updated: 2022/03/09 14:52:19 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/09 01:32:16 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	ft_init_philos(t_info *info, int limit_eats)
 {
 	size_t			i;
-	pthread_mutex_t	eating_m;
 
 	i = -1;
 	if (!(ft_malloc_p((void **)&info->philo, sizeof(t_philo) * info->num_philo))
@@ -26,8 +25,7 @@ static int	ft_init_philos(t_info *info, int limit_eats)
 		return (ft_error(1));
 	while (++i < info->num_philo)
 	{
-		if (pthread_mutex_init(&info->forks[i], NULL) != 0
-			|| pthread_mutex_init(&eating_m, NULL) != 0)
+		if (pthread_mutex_init(&info->forks[i], NULL) != 0)
 			return (ft_error(2));
 		info->philo[i].eating = FALSE;
 		info->philo[i].id = i + 1;
@@ -36,7 +34,6 @@ static int	ft_init_philos(t_info *info, int limit_eats)
 		info->philo[i].info = info;
 		info->philo[i].time_last_eat = 0;
 		info->philo[i].limit_eats = limit_eats;
-		info->philo[i].eating_m = &eating_m;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:46:58 by kyuki             #+#    #+#             */
-/*   Updated: 2022/04/11 14:35:09 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/09 01:31:42 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,9 @@ int ft_eat_action(t_philo *philo) {
 
 int	ft_eat(t_philo *philo)
 {
-	pthread_mutex_t	*right;
-	pthread_mutex_t	*left;
-
-	right = philo->info->philo[(philo->id + 1) % \
-								philo->info->num_philo].eating_m;
-	left = philo->info->philo[(philo->id - 1) % \
-								philo->info->num_philo].eating_m;
 	if (philo->info->status.died == FALSE)
 	{
-		pthread_mutex_lock(right);
-		do_mtx(philo, left, ft_eat_action);
-		pthread_mutex_unlock(right);
+		ft_eat_action(philo);
 		philo->limit_eats -= 1;
 		if (philo->limit_eats == 0)
 			philo->info->status.philos_limit_eats += 1;

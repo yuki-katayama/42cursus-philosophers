@@ -6,7 +6,7 @@
 #    By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/18 17:12:33 by kyuki             #+#    #+#              #
-#    Updated: 2022/03/22 12:56:23 by kyuki            ###   ########.fr        #
+#    Updated: 2022/05/04 02:27:24 by kyuki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,8 @@ SANFLAGS1 :=	-g -fsanitize=address
 
 SANFLAGS2 :=	-g -fsanitize=thread
 
+SANFLAGS3 :=	-g -fsanitize=leak
+
 #-------------SET VARIEBLE-----------#
 NAME	:=	philo
 
@@ -150,6 +152,13 @@ san2	:	${OBJS} ## Run sanitize using thread
 			@$(MAKE) -s -C libft/.
 			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
 			@$(CC) $(OBJS) $(SANFLAGS2) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
+			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
+
+.PHONY: san3
+san3	:	${OBJS} ## Run sanitize using thread
+			@$(MAKE) -s -C libft/.
+			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
+			@$(CC) $(OBJS) $(SANFLAGS3) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
 			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
 
 .PHONY: clean
