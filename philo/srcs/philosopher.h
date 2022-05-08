@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:43 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/09 01:24:39 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/09 01:49:16 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,20 @@
 # define MICRO_TO_MILLI 1000
 # define STOP_TEMPORALY 100
 # define MAX_PTHREAD 31000
-# define FORK 1
-# define EAT 2
-# define SLEEP 3
-# define THINK 4
-# define DEAD 5
+
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define YELLOW "\033[0;33m"
+#define BLUE "\033[0;34m"
+#define DEFAULT "\033[0;0m"
+
+enum e_status {
+	FORK = 1,
+	EAT,
+	SLEEP,
+	THINK,
+	DEAD
+};
 
 typedef struct s_time
 {
