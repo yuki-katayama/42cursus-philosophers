@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:39 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/04 02:39:35 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/09 02:13:47 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_action_usleep(long int time, t_philo *philo)
 		j = ft_gettime(philo);
 		if (j == ERROR)
 			return (ERROR);
-		if ((j - i) >= time)
+		if ((j - i) >= time || philo->info->status.died == TRUE)
 			break ;
 		if (usleep(1000) == -1)
 			return (ft_error(8));
