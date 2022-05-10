@@ -6,7 +6,7 @@
 #    By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/18 17:12:33 by kyuki             #+#    #+#              #
-#    Updated: 2022/05/04 02:27:24 by kyuki            ###   ########.fr        #
+#    Updated: 2022/05/10 21:30:59 by kyuki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,8 @@ endif
 
 #-----------SET DIRECTORY--------#
 SRCDIR	:= ./srcs
-INCDIR	:= -L./srcs philosopher.h
+LIBDIR	:= ./libft
+INCDIR	:= -I./includes -I$(LIBDIR)
 OBJDIR	:= ./objs
 DPSDIR	:= ./dps
 
@@ -111,7 +112,7 @@ CC		:= gcc
 RM		:=	rm -rf
 
 OBJS	:= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
-DPS		:= $(addprefix $(DPSDIR)/, $(notdir $(SRCS:.o=.d)))
+DPS		:= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.d)))
 
 ifeq ($(shell uname),Linux)
     PTHREADFLG := -lpthread
@@ -119,10 +120,10 @@ endif
 #-------------------------------------#
 
 .PHONY: all
-all	:	$(NAME) ## Run philo
+all	:	libft $(NAME) ## Run philo
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@$(CC) $(CFLAGS)  -MMD -MP -MF $(DPSDIR)/$(notdir $(<:.c=.d)) -c $< -o $@
+	@$(CC) $(CFLAGS)  -MMD -MP $(INCDIR) -c $< -o $@
 	@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_YELLOW)$< ⌛"
 
 -include $(DPS)
@@ -135,9 +136,9 @@ $(DPSDIR):
 	@-mkdir -p $(DPSDIR)
 
 $(NAME):	$(OBJDIR) $(DPSDIR) $(OBJS)
-			@$(MAKE) -s -C libft/.
+			@-make -s -C libft/.
 			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
-			@$(CC) $(OBJS) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
+			@$(CC) $(OBJS) $(CFLAGS) $(INCDIR) $(LIBDIR)/libft.a $(PTHREADFLG) -o $(NAME)
 			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
 
 .PHONY: san1

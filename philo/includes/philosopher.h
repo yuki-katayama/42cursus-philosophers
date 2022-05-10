@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:43 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/09 01:49:16 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 21:31:29 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h> //malloc
 # include <sys/time.h> //gettimeofday
 # include <stdbool.h> //bool
-# include "../libft/libft.h"
+# include "libft.h"
 
 # define TRUE 1
 # define FALSE 0
