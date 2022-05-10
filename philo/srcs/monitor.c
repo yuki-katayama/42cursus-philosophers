@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:48 by kyuki             #+#    #+#             */
-/*   Updated: 2022/04/15 08:59:34 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 21:41:52 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int	ft_start_monitor(t_philo *philo)
 	if (pthread_create(&thread, NULL, &ft_monitor, philo) != 0)
 	{
 		pthread_mutex_unlock(&philo->info->status.finish_m);
-		return (ft_error(4));
+		return (ft_error(E_PTHREAD_CREATE));
 	}
 	if (pthread_detach(thread) != 0)
 	{
 		pthread_mutex_unlock(&philo->info->status.finish_m);
-		return (ft_error(5));
+		return (ft_error(E_PTHREAD_DETACH));
 	}
 	return (0);
 }

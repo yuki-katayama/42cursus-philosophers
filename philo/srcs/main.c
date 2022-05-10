@@ -45,9 +45,9 @@ static int	ft_start(t_info *info)
 	{
 		if (pthread_create(&info->threads[i], NULL, \
 				ft_philosopher, (void *)&info->philo[i]))
-			return (ft_error(4));
+			return (ft_error(E_PTHREAD_CREATE));
 		if (pthread_detach(info->threads[i]))
-			return (ft_error(5));
+			return (ft_error(E_PTHREAD_DETACH));
 	}
 	return (0);
 }
@@ -57,15 +57,15 @@ int	main(int argc, char **argv)
 	t_info	info;
 
 	if (!(argc == 5 || argc == 6))
-		return (ft_error(3));
+		return (ft_error(E_INVALID_ARGUMENT));
 	else if (ft_init(&info, argv) == ERROR)
 		return (ERROR);
 	if (ft_start(&info) == ERROR)
 		return (ERROR);
 	if (pthread_mutex_lock(&info.status.finish_m))
-		return (ft_error(6));
+		return (ft_error(E_MUTEX_LOCK));
 	if (pthread_mutex_unlock(&info.status.finish_m))
-		return (ft_error(7));
+		return (ft_error(E_MUTEX_UNLOCK));
 	ft_exit(&info);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:43 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 21:31:29 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 21:44:51 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@
 #define BLUE "\033[0;34m"
 #define DEFAULT "\033[0;0m"
 
+enum e_error {
+	E_MALLOCK = 1,
+	E_MUTEX_INIT,
+	E_INVALID_ARGUMENT,
+	E_PTHREAD_CREATE,
+	E_PTHREAD_DETACH,
+	E_MUTEX_LOCK,
+	E_MUTEX_UNLOCK,
+	E_USLEEP,
+	E_INVALID_NUM_ARGUMENTS,
+	E_GET_TIME_OF_DAY,
+};
+
 enum e_status {
 	FORK = 1,
 	EAT,
@@ -41,6 +54,7 @@ enum e_status {
 	THINK,
 	DEAD
 };
+
 
 typedef struct s_time
 {

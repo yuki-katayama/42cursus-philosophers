@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:53 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/09 22:14:46 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 21:44:03 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static int	ft_init_philos(t_info *info, int limit_eats)
 							sizeof(pthread_t) * info->num_philo))
 		|| !(ft_malloc_p((void **)&info->forks, \
 							sizeof(pthread_mutex_t) * info->num_philo)))
-		return (ft_error(1));
+		return (ft_error(E_MALLOCK));
 	while (++i < info->num_philo)
 	{
 		if (pthread_mutex_init(&info->forks[i], NULL) != 0)
-			return (ft_error(2));
+			return (ft_error(E_MUTEX_INIT));
 		info->philo[i].eating = FALSE;
 		info->philo[i].id = i + 1;
 		info->philo[i].left = &(info->forks[i]);
@@ -44,9 +44,9 @@ static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 	if (pthread_mutex_init(&info->status.finish_m, NULL) != 0
 		|| pthread_mutex_init(&info->status.writing, NULL) != 0
 		|| pthread_mutex_init(&info->status.philos_died_m, NULL) != 0)
-		return (ft_error(2));
+		return (ft_error(E_MUTEX_INIT));
 	if (pthread_mutex_lock(&info->status.finish_m))
-		return (ft_error(6));
+		return (ft_error(E_MUTEX_LOCK));
 	info->status.limit_eats_mode = FALSE;
 	info->status.died = FALSE;
 	info->status.philos_limit_eats = 0;
@@ -60,7 +60,7 @@ static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 		|| info->times.time_die < 5 \
 		|| info->times.time_eat < 1 \
 		|| info->times.time_sleep < 1)
-		return (ft_error(9));
+		return (ft_error(E_INVALID_NUM_ARGUMENTS));
 	if (limit_eats)
 		info->status.limit_eats_mode = TRUE;
 	return (0);
@@ -74,7 +74,7 @@ int	ft_init(t_info *info, char **argv)
 	{
 		limit_eats = ft_atoi(argv[5]);
 		if (limit_eats < 1)
-			return (ft_error(3));
+			return (ft_error(E_INVALID_ARGUMENT));
 	}
 	else
 		limit_eats = 0;
