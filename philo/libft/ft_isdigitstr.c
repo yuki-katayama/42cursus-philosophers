@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_isdigitstr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/07 19:58:16 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 22:25:14 by kyuki            ###   ########.fr       */
+/*   Created: 2021/08/15 20:09:25 by kyuki             #+#    #+#             */
+/*   Updated: 2022/05/10 22:29:09 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <limits.h>
-# include <unistd.h>
-# include <stdbool.h>
+bool	ft_isdigitstr(char *str)
+{
+	size_t	index;
+	bool	has_digit;
 
-int		ft_malloc_p(void **p, size_t len);
-int		ft_nbrlen(long int nb);
-size_t	ft_strlen(const char *s);
-int	ft_isdigit(int c);
-bool	ft_isdigitstr(char *str);
-char	*ft_spaceskip(const char *str);
-
-#endif
+	index = 0;
+	has_digit = false;
+	str = ft_spaceskip(str);
+	if (str[index] == '+')
+		str++;
+	while (str)
+	{
+		if (ft_isdigit((int)*str))
+			has_digit = true;
+		else
+			break ;
+		str++;
+	}
+	str = ft_spaceskip(str);
+	if (*str == '\0' && has_digit == true)
+		return (true);
+	else
+		return (false);
+}

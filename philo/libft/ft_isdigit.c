@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/07 19:58:16 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 22:25:14 by kyuki            ###   ########.fr       */
+/*   Created: 2020/09/27 01:25:15 by kyuki             #+#    #+#             */
+/*   Updated: 2021/04/04 23:57:32 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+int	ft_isdigit(int c)
+{
+	int	a;
 
-# include <stdlib.h>
-# include <limits.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-int		ft_malloc_p(void **p, size_t len);
-int		ft_nbrlen(long int nb);
-size_t	ft_strlen(const char *s);
-int	ft_isdigit(int c);
-bool	ft_isdigitstr(char *str);
-char	*ft_spaceskip(const char *str);
-
-#endif
+	a = 0;
+	if (c >= 48 && c <= 57)
+	{
+		a = 1;
+	}
+	return (a);
+}

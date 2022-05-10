@@ -6,7 +6,7 @@
 #    By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/18 17:12:33 by kyuki             #+#    #+#              #
-#    Updated: 2022/05/09 23:41:59 by kyuki            ###   ########.fr        #
+#    Updated: 2022/05/10 22:47:43 by kyuki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,12 +74,14 @@ DPSDIR	:= ./dps
 
 #-----------SET SRC INFO----------#
 
-SRCNAME	:=	ft_atoi.c \
-			ft_malloc_p.c \
-			ft_nbrlen.c \
-			ft_strlen.c
+SRCNAME	:=	ft_malloc_p \
+			ft_nbrlen \
+			ft_strlen \
+			ft_isdigit \
+			ft_isdigitstr \
+			ft_spaceskip
 
-SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
+SRCS	:= $(addprefix $(SRCDIR), $(addsuffix .c, $(SRCNAME)))
 
 #-------------SET VARIEBLE-----------#
 

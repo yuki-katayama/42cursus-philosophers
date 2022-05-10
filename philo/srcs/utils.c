@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:39 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 21:44:25 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 22:30:43 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,31 @@ int	ft_m_lock(pthread_mutex_t *m, pthread_mutex_t *finish_m)
 		return (ERROR);
 	}
 	return (0);
+}
+
+int	ft_atoi(const char *str)
+{
+	long int	res;
+	int			negative;
+
+	res = 0;
+	negative = 1;
+	while (*str == '\t' || *str == '\v' || *str == '\n' \
+		|| *str == '\r' || *str == '\f' || *str == ' ')
+		str++;
+	if (*str == '+')
+	{
+		str++;
+	}
+	if(!ft_isdigitstr((char *)str)) {
+		return (-1);
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		res = res * 10 + *str - '0';
+		str++;
+		if (res > (long int)INT_MIN * -1 && negative == -1)
+			return (0);
+	}
+	return ((int)res);
 }

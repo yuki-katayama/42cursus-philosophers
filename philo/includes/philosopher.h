@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:43 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 21:44:51 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 22:25:49 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,6 @@ int			ft_action_usleep(long int limit_time, t_philo *philo);
 int  after_dead(t_info *info);
 int ft_usleep(useconds_t usec, pthread_mutex_t *m);
 void do_mtx(void *arg, pthread_mutex_t *m, int (*func)());
+int	ft_atoi(const char *str);
 
 #endif
