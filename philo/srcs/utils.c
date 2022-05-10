@@ -5,14 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/07 19:57:39 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 22:30:43 by kyuki            ###   ########.fr       */
+/*   Created: 2022/05/10 22:58:43 by kyuki             #+#    #+#             */
+/*   Updated: 2022/05/10 23:05:05 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int ft_usleep(useconds_t usec, pthread_mutex_t *m) {
+int	ft_usleep(useconds_t usec, pthread_mutex_t *m)
+{
 	if (usleep(usec) == -1)
 	{
 		pthread_mutex_unlock(m);
@@ -21,7 +22,8 @@ int ft_usleep(useconds_t usec, pthread_mutex_t *m) {
 	return (0);
 }
 
-int after_dead(t_info *info) {
+int	after_dead(t_info *info)
+{
 	info->status.philos_died += 1;
 	if (info->status.philos_died == info->num_philo)
 	{
@@ -29,13 +31,6 @@ int after_dead(t_info *info) {
 			return (ft_error(E_MUTEX_UNLOCK));
 	}
 	return (0);
-}
-
-void do_mtx(void *arg, pthread_mutex_t *m, int (*func)())
-{
-	pthread_mutex_lock(m);
-	func(arg);
-	pthread_mutex_unlock(m);
 }
 
 long int	ft_gettime(t_philo *philo)
@@ -71,27 +66,7 @@ int	ft_action_usleep(long int time, t_philo *philo)
 	return (0);
 }
 
-int	ft_m_unlock(pthread_mutex_t *m, pthread_mutex_t *finish_m)
-{
-	if (pthread_mutex_unlock(m) != 0)
-	{
-		pthread_mutex_unlock(finish_m);
-		return (ERROR);
-	}
-	return (0);
-}
-
-int	ft_m_lock(pthread_mutex_t *m, pthread_mutex_t *finish_m)
-{
-	if (pthread_mutex_lock(m) != 0)
-	{
-		pthread_mutex_unlock(finish_m);
-		return (ERROR);
-	}
-	return (0);
-}
-
-int	ft_atoi(const char *str)
+int	philo_atoi(const char *str)
 {
 	long int	res;
 	int			negative;
@@ -105,7 +80,8 @@ int	ft_atoi(const char *str)
 	{
 		str++;
 	}
-	if(!ft_isdigitstr((char *)str)) {
+	if (!ft_isdigitstr((char *)str))
+	{
 		return (-1);
 	}
 	while (*str >= '0' && *str <= '9')

@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:43 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 22:25:49 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 23:05:11 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@
 # define STOP_TEMPORALY 100
 # define MAX_PTHREAD 31000
 
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
-#define BLUE "\033[0;34m"
-#define DEFAULT "\033[0;0m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define DEFAULT "\033[0;0m"
 
-enum e_error {
+enum	e_error {
 	E_MALLOCK = 1,
 	E_MUTEX_INIT,
 	E_INVALID_ARGUMENT,
@@ -47,14 +47,13 @@ enum e_error {
 	E_GET_TIME_OF_DAY,
 };
 
-enum e_status {
+enum	e_status {
 	FORK = 1,
 	EAT,
 	SLEEP,
 	THINK,
 	DEAD
 };
-
 
 typedef struct s_time
 {
@@ -106,7 +105,7 @@ int			ft_down_forks(t_philo *philo);
 
 //eat
 int			ft_eat(t_philo *philo);
-int ft_eat_action(t_philo *philo);
+int			ft_eat_action(t_philo *philo);
 
 //output
 int			ft_output(t_philo *philo, int serial);
@@ -123,12 +122,14 @@ void		ft_exit(t_info *info);
 
 // utils
 long int	ft_gettime(t_philo *philo);
+int			ft_action_usleep(long int limit_time, t_philo *philo);
+int			after_dead(t_info *info);
+int			ft_usleep(useconds_t usec, pthread_mutex_t *m);
+int			philo_atoi(const char *str);
+
+//mutex
 int			ft_m_unlock(pthread_mutex_t *m, pthread_mutex_t *finish_m);
 int			ft_m_lock(pthread_mutex_t *m, pthread_mutex_t *finish_m);
-int			ft_action_usleep(long int limit_time, t_philo *philo);
-int  after_dead(t_info *info);
-int ft_usleep(useconds_t usec, pthread_mutex_t *m);
-void do_mtx(void *arg, pthread_mutex_t *m, int (*func)());
-int	ft_atoi(const char *str);
+void		do_mtx(void *arg, pthread_mutex_t *m, int (*func)());
 
 #endif

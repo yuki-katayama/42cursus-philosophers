@@ -6,7 +6,7 @@
 /*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 19:57:53 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 21:44:03 by kyuki            ###   ########.fr       */
+/*   Updated: 2022/05/10 23:07:23 by kyuki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ static int	ft_init_info(t_info *info, char **argv, int limit_eats)
 	info->status.died = FALSE;
 	info->status.philos_limit_eats = 0;
 	info->status.philos_died = 0;
-	info->num_philo = ft_atoi(argv[1]);
-	info->times.time_die = ft_atoi(argv[2]);
-	info->times.time_eat = ft_atoi(argv[3]);
-	info->times.time_sleep = ft_atoi(argv[4]);
+	info->num_philo = philo_atoi(argv[1]);
+	info->times.time_die = philo_atoi(argv[2]);
+	info->times.time_eat = philo_atoi(argv[3]);
+	info->times.time_sleep = philo_atoi(argv[4]);
 	if ((info->num_philo < 1 \
 		|| info->num_philo > 200) \
 		|| info->times.time_die < 5 \
@@ -72,7 +72,7 @@ int	ft_init(t_info *info, char **argv)
 
 	if (argv[5] != NULL)
 	{
-		limit_eats = ft_atoi(argv[5]);
+		limit_eats = philo_atoi(argv[5]);
 		if (limit_eats < 1)
 			return (ft_error(E_INVALID_ARGUMENT));
 	}

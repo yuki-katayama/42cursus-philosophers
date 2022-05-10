@@ -6,7 +6,7 @@
 #    By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/18 17:12:33 by kyuki             #+#    #+#              #
-#    Updated: 2022/05/10 21:30:59 by kyuki            ###   ########.fr        #
+#    Updated: 2022/05/10 23:04:37 by kyuki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,17 +81,8 @@ SRCNAME	:=	main \
 			output \
 			monitor \
 			error \
-			exit
-
-BSRCNAME :=	main \
-			init \
-			utils \
-			eat \
-			permission \
-			output \
-			monitor \
-			error \
-			exit
+			exit \
+			mutex
 
 SRCS := $(addprefix $(SRCDIR)/, $(addsuffix .c, $(SRCNAME)))
 

@@ -1,4 +1,3 @@
-
 #include "philosopher.h"
 
 static int	ft_philo_action_and_monitor(t_philo *philo)
@@ -10,17 +9,14 @@ static int	ft_philo_action_and_monitor(t_philo *philo)
 		if (ft_take_forks(philo) == ERROR)
 			return (ERROR);
 		if (philo->info->num_philo == 1)
-			continue;
-		if (ft_eat(philo) == ERROR
-			|| ft_down_forks(philo) == ERROR
-			|| ft_output(philo, THINK) == ERROR)
-				return (ERROR);
+			continue ;
+		if (ft_eat(philo) == ERROR \
+		|| ft_down_forks(philo) == ERROR \
+		|| ft_output(philo, THINK) == ERROR)
+			return (ERROR);
 	}
-
 	return (0);
 }
-
-
 
 static void	*ft_philosopher(void *arg)
 {
