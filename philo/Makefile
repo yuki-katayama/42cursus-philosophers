@@ -87,13 +87,17 @@ SRCNAME	:=	main \
 SRCS := $(addprefix $(SRCDIR)/, $(addsuffix .c, $(SRCNAME)))
 
 #-------------SET FLAGS--------------#
-CFLAGS	:= -Wall -Wextra -Werror -g
+ifdef SAN1
+	SANFLAGS := -g -fsanitize=address
+elif SAN2
+	SANFLAGS := -g -fsanitize=thread
+elif SAN3
+	SANFLAGS := -g -fsanitize=leak
+endif
 
-SANFLAGS1 :=	-g -fsanitize=address
+CFLAGS	:= -g -Wall -Wextra -Werror $(SANFLAGS)
 
-SANFLAGS2 :=	-g -fsanitize=thread
-
-SANFLAGS3 :=	-g -fsanitize=leak
+VALGRIND := valgrind --tool=helgrind
 
 #-------------SET VARIEBLE-----------#
 NAME	:=	philo
@@ -114,7 +118,7 @@ endif
 all	:	libft $(NAME) ## Run philo
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@$(CC) $(CFLAGS)  -MMD -MP $(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -MMD -MP $(INCDIR) $(PTHREADFLG) -c $< -o $@
 	@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_YELLOW)$< ⌛"
 
 -include $(DPS)
@@ -132,26 +136,9 @@ $(NAME):	$(OBJDIR) $(DPSDIR) $(OBJS)
 			@$(CC) $(OBJS) $(CFLAGS) $(INCDIR) $(LIBDIR)/libft.a $(PTHREADFLG) -o $(NAME)
 			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
 
-.PHONY: san1
-san1	:	${OBJS} ## Run sanitize using addres
-			@$(MAKE) -s -C libft/.
-			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
-			@$(CC) $(OBJS) $(SANFLAGS1) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
-			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
-
-.PHONY: san2
-san2	:	${OBJS} ## Run sanitize using thread
-			@$(MAKE) -s -C libft/.
-			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
-			@$(CC) $(OBJS) $(SANFLAGS2) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
-			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
-
-.PHONY: san3
-san3	:	${OBJS} ## Run sanitize using thread
-			@$(MAKE) -s -C libft/.
-			@printf "$(ESC_CLEAR_CURRENT_LINE)$(ESC_GREEN)philosopher: All files compiled into '$(OBJDIR)' and '$(DPSDIR)'. $(ESC_DEFAULT)✅\n"
-			@$(CC) $(OBJS) $(SANFLAGS3) $(CFLAGS) libft/libft.a $(PTHREADFLG) -o $(NAME)
-			@echo "$(ESC_GREEN)philosopher: '$(NAME)' was created. $(ESC_DEFAULT)✅"
+.PHONY: val
+val	:
+	@valgrind --tool=helgrind ./philo 4 310 200 200
 
 .PHONY: clean
 clean	: ## Remove object
