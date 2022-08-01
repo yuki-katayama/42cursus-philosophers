@@ -66,14 +66,15 @@ else
 endif
 
 #-----------SET DIRECTORY--------#
-SRCDIR	:= ./srcs
-LIBDIR	:= ./libft
-INCDIR	:= -I./includes -I$(LIBDIR)
-OBJDIR	:= ./objs
-DPSDIR	:= ./dps
-
-#-----------SET SRCS-------------#
-SRCNAME	:=	main \
+ifdef DEBUG
+	INCDIR	:= -I./includes/philosopher_retry.h -I$(LIBDIR)
+	SRCDIR := ./srcs_retry
+	SRCNAME	:=	main \
+				utils
+else
+	INCDIR	:= -I./includes/philosopher.h -I$(LIBDIR)
+	SRCDIR := ./srcs
+	SRCNAME	:=	main \
 			init \
 			utils \
 			eat \
@@ -83,6 +84,13 @@ SRCNAME	:=	main \
 			error \
 			exit \
 			mutex
+endif
+LIBDIR	:= ./libft
+OBJDIR	:= ./objs
+DPSDIR	:= ./dps
+
+#-----------SET SRCS-------------#
+INCDIR	:= -I./includes -I$(LIBDIR)
 
 SRCS := $(addprefix $(SRCDIR)/, $(addsuffix .c, $(SRCNAME)))
 
@@ -139,6 +147,10 @@ $(NAME):	$(OBJDIR) $(DPSDIR) $(OBJS)
 .PHONY: val
 val	:
 	@valgrind --tool=helgrind ./philo 4 310 200 200
+
+.PHONY: debug
+debug: 
+	@-make -s -e DEBUG=1
 
 .PHONY: clean
 clean	: ## Remove object
