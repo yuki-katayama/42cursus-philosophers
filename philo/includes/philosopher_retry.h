@@ -31,7 +31,9 @@ typedef struct	s_data
 }				t_data;
 
 typedef struct s_philo {
+	int			id;
 	pthread_mutex_t forks;
+	t_data			*data;
 }				t_philo;
 
 int64_t			philo_atoi(const char *str);

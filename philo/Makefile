@@ -95,12 +95,16 @@ INCDIR	:= -I./includes -I$(LIBDIR)
 SRCS := $(addprefix $(SRCDIR)/, $(addsuffix .c, $(SRCNAME)))
 
 #-------------SET FLAGS--------------#
-ifdef SAN1
+ifdef SAN_AD
 	SANFLAGS := -g -fsanitize=address
-elif SAN2
+else
+ifdef SAN_TH
 	SANFLAGS := -g -fsanitize=thread
-elif SAN3
+else
+ifdef SAN_LE
 	SANFLAGS := -g -fsanitize=leak
+endif
+endif
 endif
 
 CFLAGS	:= -g -Wall -Wextra -Werror $(SANFLAGS)
@@ -150,7 +154,7 @@ val	:
 
 .PHONY: debug
 debug: 
-	@-make -s -e DEBUG=1
+	@-make -s -e DEBUG=1 SAN_AD=1
 
 .PHONY: clean
 clean	: ## Remove object
