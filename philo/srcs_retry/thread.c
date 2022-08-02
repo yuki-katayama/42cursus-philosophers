@@ -7,10 +7,18 @@ int8_t ft_thread_create(t_data *data, t_philo *philo) {
 		philo[i].id = i + 1;
 		philo[i].data = data;
 	}
-	i = -1;
-	while(++i < data->num_philo) {
+	i = 0;
+	while(i < data->num_philo) {
 		ft_init_forks(&philo[i]);
 		pthread_create(&data->th_philo[i], NULL, ft_philosopher, &philo[i]);
+		i += 2;
+	}
+	usleep(100);
+	i = 1;
+	while(i < data->num_philo) {
+		ft_init_forks(&philo[i]);
+		pthread_create(&data->th_philo[i], NULL, ft_philosopher, &philo[i]);
+		i += 2;
 	}
 	return (0);
 }

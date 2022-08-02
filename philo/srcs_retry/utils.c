@@ -29,7 +29,7 @@ int64_t	philo_atoi(const char *str)
 	return ((int64_t)res);
 }
 
-static int64_t	ft_gettime()
+int64_t	ft_gettime(void)
 {
 	struct timeval	tv;
 

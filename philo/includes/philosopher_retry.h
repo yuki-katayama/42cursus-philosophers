@@ -19,6 +19,12 @@
 #define TIME_EAT_MIN 1
 #define TIME_SLEEP_MIN 1
 
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define DEFAULT "\033[0;0m"
+
 enum	e_error {
 	E_INVALID_NUM_ARGUMENTS = 1,
 	E_INVALID_ARGUMENT,
@@ -30,6 +36,14 @@ enum	e_error {
 	// E_PTHREAD_DETACH,
 	// E_MUTEX_LOCK,
 	// E_MUTEX_UNLOCK,
+};
+
+enum	e_status {
+	FORK = 1,
+	EAT,
+	SLEEP,
+	THINK,
+	DEAD
 };
 
 typedef struct s_time
@@ -54,8 +68,7 @@ typedef struct s_philo {
 	t_data			*data;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-
-
+	int64_t			time_last_eat;
 }				t_philo;
 
 
@@ -77,5 +90,19 @@ int8_t ft_thread_create(t_data *data, t_philo *philo);
 // utils
 int64_t	philo_atoi(const char *str);
 int8_t ft_usleep(int64_t time);
+int64_t	ft_gettime(void);
+
+// eat
+int8_t ft_eat(t_philo *philo);
+
+// fork
+void ft_take_fork(t_philo *philo);
+void ft_down_fork(t_philo *philo);
+
+// eat
+int8_t ft_sleep(t_philo *philo);
+
+//output
+void	ft_print_status(t_philo *philo, int8_t action);
 
 #endif

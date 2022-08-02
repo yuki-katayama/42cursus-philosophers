@@ -75,7 +75,10 @@ ifdef DEBUG
 				fork \
 				init \
 				philosopher \
-				thread
+				thread \
+				eat \
+				output \
+				sleep
 else
 	INCDIR	:= -I./includes/philosopher.h -I$(LIBDIR)
 	SRCDIR := ./srcs
