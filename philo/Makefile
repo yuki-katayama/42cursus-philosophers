@@ -70,7 +70,12 @@ ifdef DEBUG
 	INCDIR	:= -I./includes/philosopher_retry.h -I$(LIBDIR)
 	SRCDIR := ./srcs_retry
 	SRCNAME	:=	main \
-				utils
+				utils \
+				error \
+				fork \
+				init \
+				philosopher \
+				thread
 else
 	INCDIR	:= -I./includes/philosopher.h -I$(LIBDIR)
 	SRCDIR := ./srcs
