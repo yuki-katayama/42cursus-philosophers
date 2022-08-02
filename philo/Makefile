@@ -66,14 +66,23 @@ else
 endif
 
 #-----------SET DIRECTORY--------#
-SRCDIR	:= ./srcs
-LIBDIR	:= ./libft
-INCDIR	:= -I./includes -I$(LIBDIR)
-OBJDIR	:= ./objs
-DPSDIR	:= ./dps
-
-#-----------SET SRCS-------------#
-SRCNAME	:=	main \
+ifdef DEBUG
+	INCDIR	:= -I./includes/philosopher_retry.h -I$(LIBDIR)
+	SRCDIR := ./srcs_retry
+	SRCNAME	:=	main \
+				utils \
+				error \
+				fork \
+				init \
+				philosopher \
+				thread \
+				eat \
+				output \
+				sleep
+else
+	INCDIR	:= -I./includes/philosopher.h -I$(LIBDIR)
+	SRCDIR := ./srcs
+	SRCNAME	:=	main \
 			init \
 			utils \
 			eat \
@@ -83,16 +92,27 @@ SRCNAME	:=	main \
 			error \
 			exit \
 			mutex
+endif
+LIBDIR	:= ./libft
+OBJDIR	:= ./objs
+DPSDIR	:= ./dps
+
+#-----------SET SRCS-------------#
+INCDIR	:= -I./includes -I$(LIBDIR)
 
 SRCS := $(addprefix $(SRCDIR)/, $(addsuffix .c, $(SRCNAME)))
 
 #-------------SET FLAGS--------------#
-ifdef SAN1
+ifdef SAN_AD
 	SANFLAGS := -g -fsanitize=address
-elif SAN2
+else
+ifdef SAN_TH
 	SANFLAGS := -g -fsanitize=thread
-elif SAN3
+else
+ifdef SAN_LE
 	SANFLAGS := -g -fsanitize=leak
+endif
+endif
 endif
 
 CFLAGS	:= -g -Wall -Wextra -Werror $(SANFLAGS)
@@ -139,6 +159,10 @@ $(NAME):	$(OBJDIR) $(DPSDIR) $(OBJS)
 .PHONY: val
 val	:
 	@valgrind --tool=helgrind ./philo 4 310 200 200
+
+.PHONY: debug
+debug: 
+	@-make -s -e DEBUG=1 SAN_AD=1
 
 .PHONY: clean
 clean	: ## Remove object
