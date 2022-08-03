@@ -58,3 +58,18 @@ int8_t ft_usleep(int64_t time)
 	}
 	return (0);
 }
+
+int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)())
+{
+	int8_t ret;
+
+	pthread_mutex_lock(m);
+	ret = func(arg);
+	pthread_mutex_unlock(m);
+	return (ret);
+}
+
+int8_t is_alive(t_philo *philo)
+{
+	return (!philo->data->died);
+}
