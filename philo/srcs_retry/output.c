@@ -2,6 +2,7 @@
 
 void	ft_print_status(t_philo *philo, int8_t action)
 {
+	pthread_mutex_lock(&philo->data->mtx_print_status);
 	if (philo->data->died == 0)
 	{
 		if (action == FORK)
@@ -20,4 +21,5 @@ void	ft_print_status(t_philo *philo, int8_t action)
 			printf("%s%ld %d died%s\n", \
 				RED, ft_gettime(), philo->id, DEFAULT);
 	}
+	pthread_mutex_unlock(&philo->data->mtx_print_status);
 }

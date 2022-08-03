@@ -14,7 +14,7 @@ int8_t check_died(t_philo *philo)
 
 int8_t continue_monitor(t_philo *philo)
 {
-	do_mtx(philo, &philo->data->mtx_print_status, check_died);
+	check_died(philo);
 	return (is_alive(philo));
 }
 
