@@ -43,7 +43,7 @@ enum	e_status {
 	EAT,
 	SLEEP,
 	THINK,
-	DEAD
+	DIED
 };
 
 typedef struct s_time
@@ -55,20 +55,22 @@ typedef struct s_time
 
 typedef struct	s_data
 {
-	pthread_t *th_philo;
-	pthread_t *th_monitor;
-	pthread_mutex_t *forks;
+	int8_t	died;
 	int32_t num_philo;
 	int64_t limit_eats;
+	pthread_t *th_philo;
+	pthread_t *th_monitor;
+	pthread_mutex_t *mtx_forks;
+	pthread_mutex_t mtx_print_status;
 	t_time	action_time;
 }				t_data;
 
 typedef struct s_philo {
 	int32_t			id;
-	t_data			*data;
-	pthread_mutex_t	*left;
-	pthread_mutex_t	*right;
 	int64_t			time_last_eat;
+	pthread_mutex_t	*mtx_left;
+	pthread_mutex_t	*mtx_right;
+	t_data			*data;
 }				t_philo;
 
 
@@ -88,9 +90,11 @@ int8_t ft_thread_end(t_data *data, t_philo *philo);
 int8_t ft_thread_create(t_data *data, t_philo *philo);
 
 // utils
-int64_t	philo_atoi(const char *str);
 int8_t ft_usleep(int64_t time);
+int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)());
+int64_t	philo_atoi(const char *str);
 int64_t	ft_gettime(void);
+int8_t is_alive(t_philo *philo);
 
 // eat
 int8_t ft_eat(t_philo *philo);
@@ -104,5 +108,8 @@ int8_t ft_sleep(t_philo *philo);
 
 //output
 void	ft_print_status(t_philo *philo, int8_t action);
+
+//monitor
+void *ft_monitor(void *arg);
 
 #endif

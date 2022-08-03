@@ -10,12 +10,6 @@ int8_t ft_validate_arg(t_data *data) {
 	return (0);
 }
 
-int8_t ft_init_forks(t_philo *philo) {
-	philo->left = &philo->data->forks[(philo->id - 1)];
-	philo->right = &philo->data->forks[(philo->id) % philo->data->num_philo];
-	return (0);
-}
-
 int8_t ft_init(t_data *data, t_philo **philo, char **argv) {
 	int32_t i;
 
@@ -26,14 +20,16 @@ int8_t ft_init(t_data *data, t_philo **philo, char **argv) {
 	data->limit_eats = -1;
 	if (argv[5] != NULL)
 		data->limit_eats = philo_atoi(argv[5]);
+	if (pthread_mutex_init(&data->mtx_print_status, NULL) != 0)
+		return 0;
 	if (!(ft_malloc_p((void **)&data->th_philo, sizeof(pthread_t) * data->num_philo))
 		|| !(ft_malloc_p((void **)&data->th_monitor, sizeof(pthread_t) * data->num_philo))
-		|| !(ft_malloc_p((void **)&data->forks, sizeof(pthread_mutex_t) * data->num_philo))
+		|| !(ft_malloc_p((void **)&data->mtx_forks, sizeof(pthread_mutex_t) * data->num_philo))
 		|| !(ft_malloc_p((void **)&*philo, sizeof(t_philo) * data->num_philo)))
 		return (ft_error(E_MALLOCK));
 	i = -1;
-	while(++i < data->num_philo) {
-		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+	while (++i < data->num_philo) {
+		if (pthread_mutex_init(&data->mtx_forks[i], NULL) != 0)
 			return (ft_error(E_MUTEX_INIT));
 	}
 	return (0);

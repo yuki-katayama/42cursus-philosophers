@@ -78,7 +78,8 @@ ifdef DEBUG
 				thread \
 				eat \
 				output \
-				sleep
+				sleep \
+				monitor
 else
 	INCDIR	:= -I./includes/philosopher.h -I$(LIBDIR)
 	SRCDIR := ./srcs
