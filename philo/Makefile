@@ -144,7 +144,7 @@ $(NAME):	$(OBJDIR) $(DPSDIR) $(OBJS)
 
 .PHONY: val
 val	:
-	@valgrind --tool=helgrind ./philo 4 310 200 200
+	@valgrind --tool=helgrind ./philo 10 410 200 200 2
 
 .PHONY: debug
 debug: 

@@ -12,13 +12,9 @@ int64_t	philo_atoi(const char *str)
 		|| *str == '\r' || *str == '\f' || *str == ' ')
 		str++;
 	if (*str == '+')
-	{
 		str++;
-	}
 	if (!ft_isdigitstr((char *)str))
-	{
 		return (-1);
-	}
 	while (*str >= '0' && *str <= '9')
 	{
 		res = res * 10 + *str - '0';
@@ -38,7 +34,7 @@ int64_t	ft_gettime(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-int8_t ft_usleep(int64_t time, t_philo *philo)
+int8_t	ft_usleep(int64_t time, t_philo *philo)
 {
 	int64_t	i;
 	int64_t	j;
@@ -69,7 +65,7 @@ int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)())
 	return (ret);
 }
 
-static int8_t return_died_var(t_philo *philo)
+static int8_t	return_died_var(t_philo *philo)
 {
 	return philo->data->died;
 }

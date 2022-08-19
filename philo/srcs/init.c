@@ -1,6 +1,6 @@
 #include "philosopher.h"
 
-static int8_t ft_init_arg(t_data *data, char **argv)
+static int8_t	ft_init_arg(t_data *data, char **argv)
 {
 	data->num_philo = philo_atoi(argv[1]);
 	data->action_time.time_die = philo_atoi(argv[2]);
@@ -8,7 +8,8 @@ static int8_t ft_init_arg(t_data *data, char **argv)
 	data->action_time.time_sleep = philo_atoi(argv[4]);
 	data->at_least_eat_times = UNSET;
 	data->at_least_eat_num_philo  = UNSET;
-	if (argv[5] != NULL) {
+	if (argv[5] != NULL)
+	{
 		data->at_least_eat_num_philo = data->num_philo;
 		data->at_least_eat_times = philo_atoi(argv[5]);
 		if (data->at_least_eat_times < 0)
@@ -23,7 +24,7 @@ static int8_t ft_init_arg(t_data *data, char **argv)
 	return (0);
 }
 
-static int8_t ft_init_malloc(t_data *data, t_philo **philo)
+static int8_t	ft_init_malloc(t_data *data, t_philo **philo)
 {
 	if (!(ft_malloc_p((void **)&data->th_philo, sizeof(pthread_t) * data->num_philo))
 	|| !(ft_malloc_p((void **)&data->th_monitor, sizeof(pthread_t) * data->num_philo))
@@ -33,23 +34,25 @@ static int8_t ft_init_malloc(t_data *data, t_philo **philo)
 	return (0);
 }
 
-static int8_t ft_init_mutex(t_data *data)
+static int8_t	ft_init_mutex(t_data *data)
 {
-	int32_t i;
+	int32_t	i;
 
 	if (pthread_mutex_init(&data->mtx_print_status, NULL) != 0
 	|| pthread_mutex_init(&data->mtx_died, NULL) != 0)
 		return (ft_error(E_MUTEX_INIT));
 	i = -1;
-	while (++i < data->num_philo) {
+	while (++i < data->num_philo)
+	{
 		if (pthread_mutex_init(&data->mtx_forks[i], NULL) != 0)
 			return (ft_error(E_MUTEX_INIT));
 	}
 	return (0);
 }
 
-int8_t ft_init(t_data *data, t_philo **philo, char **argv) {
-	if(ft_init_arg(data, argv)
+int8_t	ft_init(t_data *data, t_philo **philo, char **argv)
+{
+	if (ft_init_arg(data, argv)
 	|| ft_init_malloc(data, philo)
 	|| ft_init_mutex(data))
 		return (ERROR);

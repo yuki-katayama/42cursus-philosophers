@@ -1,14 +1,13 @@
 #include "philosopher.h"
 
-void *ft_philosopher(void *arg)
+void	*ft_philosopher(void *arg)
 {
-	t_philo *philo;
-
-	(void)arg;
+	t_philo	*philo;
 
 	philo = arg;
 	ft_init_forks(philo);
-	while(!is_died(philo)) {
+	while(!is_died(philo))
+	{
 		ft_take_fork(philo);
 		ft_eat(philo);
 		ft_down_fork(philo);

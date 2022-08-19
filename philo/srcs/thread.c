@@ -1,9 +1,13 @@
 #include "philosopher.h"
 
-int8_t ft_thread_create(t_data *data, t_philo *philo) {
-	int8_t i = -1;
-	int64_t j = 0;
-	while(++i != 2) {
+int8_t	ft_thread_create(t_data *data, t_philo *philo) {
+	int8_t	i;
+	int64_t	j;
+
+	i = -1;
+	j = 0;
+	while(++i != 2)
+	{
 		while(j < data->num_philo)
 		{
 			philo[j].id = j + 1;
@@ -21,10 +25,13 @@ int8_t ft_thread_create(t_data *data, t_philo *philo) {
 	return (0);
 }
 
-int8_t ft_thread_end(t_data *data, t_philo *philo)
+int8_t	ft_thread_end(t_data *data, t_philo *philo)
 {
-	int32_t	i = -1;
-	while(++i < data->num_philo) {
+	int32_t	i;
+
+	i = -1;
+	while(++i < data->num_philo)
+	{
 		if(pthread_join(data->th_philo[i], NULL)
 		|| pthread_join(data->th_monitor[i], NULL))
 			return (ft_error(E_PTHREAD_JOIN));
