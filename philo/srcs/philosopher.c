@@ -8,7 +8,7 @@ void *ft_philosopher(void *arg)
 
 	philo = arg;
 	ft_init_forks(philo);
-	while(continue_monitor(philo)) {
+	while(!is_died(philo)) {
 		ft_take_fork(philo);
 		ft_eat(philo);
 		ft_down_fork(philo);

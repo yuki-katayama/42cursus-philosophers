@@ -19,7 +19,7 @@ static int8_t is_expired_eat_times(t_philo *philo)
 	return (0);
 }
 
-int8_t check_died(t_philo *philo)
+static int8_t check_died(t_philo *philo)
 {
 	if(is_expired_time(philo) || philo->data->died == 1 || is_expired_eat_times(philo) || philo->data->num_philo == 1) {
 		if (philo->data->at_least_eat_num_philo != 0)

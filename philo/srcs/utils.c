@@ -51,7 +51,7 @@ int8_t ft_usleep(int64_t time, t_philo *philo)
 		j = ft_gettime();
 		if (j == ERROR)
 			return (ERROR);
-		if ((j - i) >= time || philo->data->died)
+		if ((j - i) >= time || is_died(philo))
 			break ;
 		if (usleep(200) == -1)
 			return (ft_error(E_USLEEP));
@@ -67,4 +67,14 @@ int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)())
 	ret = func(arg);
 	pthread_mutex_unlock(m);
 	return (ret);
+}
+
+static int8_t return_died_var(t_philo *philo)
+{
+	return philo->data->died;
+}
+
+int8_t is_died(t_philo *philo)
+{
+	return (do_mtx(philo, &philo->data->mtx_died, &return_died_var));
 }

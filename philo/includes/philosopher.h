@@ -99,6 +99,7 @@ int8_t ft_usleep(int64_t time, t_philo *philo);
 int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)());
 int64_t	philo_atoi(const char *str);
 int64_t	ft_gettime(void);
+int8_t is_died(t_philo *philo);
 
 // eat
 int8_t ft_eat(t_philo *philo);
@@ -116,7 +117,6 @@ int8_t	ft_print_status(t_print *print_data);
 
 //monitor
 void *ft_monitor(void *arg);
-int8_t check_died(t_philo *philo);
 int8_t continue_monitor(t_philo *philo);
 
 #endif
