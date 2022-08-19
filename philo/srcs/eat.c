@@ -1,37 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   eat.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 21:46:58 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 22:59:37 by kyuki            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "philosopher_retry.h"
 
-#include "philosopher.h"
-
-int	ft_eat_action(t_philo *philo)
+static int8_t ft_update_after_eat(t_philo *philo)
 {
-	philo->eating = 1;
-	philo->time_last_eat = ft_gettime(philo);
-	if (ft_output(philo, EAT) == ERROR)
-		return (ERROR);
-	if (ft_action_usleep(philo->info->times.time_eat, philo) == ERROR)
-		return (ERROR);
+	philo->time_last_eat = ft_gettime();
+	if (philo->can_max_eat_times != -1)
+		philo->can_max_eat_times -= 1;
 	return (0);
 }
 
-int	ft_eat(t_philo *philo)
+int8_t ft_eat(t_philo *philo)
 {
-	if (philo->info->status.died == FALSE)
-	{
-		ft_eat_action(philo);
-		philo->limit_eats -= 1;
-		if (philo->limit_eats == 0)
-			philo->info->status.philos_limit_eats += 1;
-		philo->eating = 0;
+	do_mtx(philo, &philo->data->mtx_died, &ft_update_after_eat);
+	do_mtx(&(t_print){philo, EAT}, &philo->data->mtx_print_status, &ft_print_status);
+	if (ft_usleep(philo->data->action_time.time_eat, philo) == ERROR) {
+		return (ERROR);
 	}
 	return (0);
 }

@@ -1,75 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 22:58:43 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 23:05:05 by kyuki            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "libft.h"
+#include "philosopher_retry.h"
 
-#include "philosopher.h"
-
-int	ft_usleep(useconds_t usec, pthread_mutex_t *m)
+int64_t	philo_atoi(const char *str)
 {
-	if (usleep(usec) == -1)
-	{
-		pthread_mutex_unlock(m);
-		return (ft_error(E_USLEEP));
-	}
-	return (0);
-}
-
-int	after_dead(t_info *info)
-{
-	info->status.philos_died += 1;
-	if (info->status.philos_died == info->num_philo)
-	{
-		if (pthread_mutex_unlock(&info->status.finish_m) != 0)
-			return (ft_error(E_MUTEX_UNLOCK));
-	}
-	return (0);
-}
-
-long int	ft_gettime(t_philo *philo)
-{
-	struct timeval	tv;
-
-	if (gettimeofday(&tv, NULL) != 0)
-	{
-		pthread_mutex_unlock(&philo->info->status.finish_m);
-		return (ft_error(E_GET_TIME_OF_DAY));
-	}
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-int	ft_action_usleep(long int time, t_philo *philo)
-{
-	long int	i;
-	long int	j;
-
-	i = ft_gettime(philo);
-	if (i == ERROR)
-		return (ERROR);
-	while (1)
-	{
-		j = ft_gettime(philo);
-		if (j == ERROR)
-			return (ERROR);
-		if ((j - i) >= time || philo->info->status.died == TRUE)
-			break ;
-		if (usleep(1000) == -1)
-			return (ft_error(E_USLEEP));
-	}
-	return (0);
-}
-
-int	philo_atoi(const char *str)
-{
-	long int	res;
-	int			negative;
+	int64_t	res;
+	int8_t	negative;
 
 	res = 0;
 	negative = 1;
@@ -88,8 +23,73 @@ int	philo_atoi(const char *str)
 	{
 		res = res * 10 + *str - '0';
 		str++;
-		if (res > (long int)INT_MIN * -1 && negative == -1)
+		if (res > (int64_t)INT_MIN * -1 && negative == -1)
 			return (0);
 	}
-	return ((int)res);
+	return ((int64_t)res);
+}
+
+int64_t	ft_gettime(void)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) != 0)
+		return (ft_error(E_GET_TIME_OF_DAY));
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+int8_t ft_usleep(int64_t time, t_philo *philo)
+{
+	int64_t	i;
+	int64_t	j;
+
+	i = ft_gettime();
+	if (i == ERROR)
+		return (ERROR);
+	while (1)
+	{
+		j = ft_gettime();
+		if (j == ERROR)
+			return (ERROR);
+		if ((j - i) >= time || philo->data->died)
+			break ;
+		if (usleep(200) == -1)
+			return (ft_error(E_USLEEP));
+	}
+	return (0);
+}
+
+int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)())
+{
+	int8_t ret;
+
+	pthread_mutex_lock(m);
+	ret = func(arg);
+	pthread_mutex_unlock(m);
+	return (ret);
+}
+
+static int8_t is_expired_time(t_philo *philo)
+{
+	int64_t elapsed_time;
+
+	elapsed_time = ft_gettime() - philo->time_last_eat;
+	return (philo->time_last_eat != -1 && elapsed_time >= philo->data->action_time.time_die);
+}
+
+static int8_t is_expired_eat_times(t_philo *philo)
+{
+	if(philo->can_max_eat_times == 0 && philo->can_max_eat_times != -1) {
+		philo->data->at_least_eat_num_philo -= 1;
+		philo->can_max_eat_times -= 1;
+		if (philo->data->at_least_eat_num_philo == 0) {
+			return (1);
+		}
+	}
+	return (0);
+}
+
+int8_t is_died(t_philo *philo)
+{
+	return (is_expired_time(philo) || philo->data->died == 1 || is_expired_eat_times(philo));
 }

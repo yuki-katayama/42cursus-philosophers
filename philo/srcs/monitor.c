@@ -1,66 +1,31 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   monitor.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/07 19:57:48 by kyuki             #+#    #+#             */
-/*   Updated: 2022/05/10 21:41:52 by kyuki            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "philosopher_retry.h"
 
-#include "philosopher.h"
-
-static int	ft_philo_is_died(t_philo *philo, long int elapsed_time)
+int8_t check_died(t_philo *philo)
 {
-	if ((!(philo->eating) && elapsed_time >= philo->info->times.time_die)
-		|| (philo->info->status.limit_eats_mode
-			&& philo->info->status.philos_limit_eats >= philo->info->num_philo)
-		|| (philo->info->status.died == TRUE))
-	{
-		if (philo->info->status.died == FALSE)
-		{
-			ft_output(philo, DEAD);
-		}
+	if(is_died(philo)) {
+		do_mtx(&(t_print){philo, DIED}, &philo->data->mtx_print_status, &ft_print_status);
+		philo->data->died = 1;
 		return (1);
 	}
 	return (0);
 }
 
-void	*ft_monitor(void *p)
+int8_t continue_monitor(t_philo *philo)
 {
-	t_philo		*philo;
-	long int	elapsed_time;
+	int8_t alive;
 
-	philo = p;
-	while (1)
-	{
-		elapsed_time = ft_gettime(philo) - philo->time_last_eat;
-		if (ft_philo_is_died(philo, elapsed_time))
-			return (NULL);
-		if (usleep(200) == -1)
-		{
-			pthread_mutex_unlock(&philo->info->status.finish_m);
-			return ((void *)(size_t)ft_error(8));
-		}
-	}
-	return (NULL);
+	alive = !do_mtx(philo, &philo->data->mtx_died, check_died);
+	return (alive);
 }
 
-int	ft_start_monitor(t_philo *philo)
+void *ft_monitor(void *arg)
 {
-	pthread_t	thread;
+	t_philo *philo;
 
-	if (pthread_create(&thread, NULL, &ft_monitor, philo) != 0)
-	{
-		pthread_mutex_unlock(&philo->info->status.finish_m);
-		return (ft_error(E_PTHREAD_CREATE));
+	philo = arg;	
+	while(continue_monitor(philo)) {
+		if (usleep(500))
+			return (NULL);
 	}
-	if (pthread_detach(thread) != 0)
-	{
-		pthread_mutex_unlock(&philo->info->status.finish_m);
-		return (ft_error(E_PTHREAD_DETACH));
-	}
-	return (0);
+	return (NULL);
 }

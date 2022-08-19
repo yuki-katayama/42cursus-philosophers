@@ -66,34 +66,19 @@ else
 endif
 
 #-----------SET DIRECTORY--------#
-ifdef DEBUG
-	INCDIR	:= -I./includes/philosopher_retry.h -I$(LIBDIR)
-	SRCDIR := ./srcs_retry
-	SRCNAME	:=	main \
-				utils \
-				error \
-				fork \
-				init \
-				philosopher \
-				thread \
-				eat \
-				print_status \
-				sleep \
-				monitor
-else
-	INCDIR	:= -I./includes/philosopher.h -I$(LIBDIR)
-	SRCDIR := ./srcs
-	SRCNAME	:=	main \
-			init \
+INCDIR	:= -I./includes/philosopher_retry.h -I$(LIBDIR)
+SRCDIR := ./srcs
+SRCNAME	:=	main \
 			utils \
-			eat \
-			forks \
-			output \
-			monitor \
 			error \
-			exit \
-			mutex
-endif
+			fork \
+			init \
+			philosopher \
+			thread \
+			eat \
+			print_status \
+			sleep \
+			monitor
 LIBDIR	:= ./libft
 OBJDIR	:= ./objs
 DPSDIR	:= ./dps
