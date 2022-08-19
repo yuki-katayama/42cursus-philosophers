@@ -3,7 +3,7 @@
 static int8_t ft_update_after_eat(t_philo *philo)
 {
 	philo->time_last_eat = ft_gettime();
-	if (philo->can_max_eat_times != -1)
+	if (philo->can_max_eat_times != UNSET)
 		philo->can_max_eat_times -= 1;
 	return (0);
 }

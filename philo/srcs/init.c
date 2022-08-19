@@ -6,8 +6,8 @@ static int8_t ft_init_arg(t_data *data, char **argv)
 	data->action_time.time_die = philo_atoi(argv[2]);
 	data->action_time.time_eat = philo_atoi(argv[3]);
 	data->action_time.time_sleep = philo_atoi(argv[4]);
-	data->at_least_eat_times = -1;
-	data->at_least_eat_num_philo  = -1;
+	data->at_least_eat_times = UNSET;
+	data->at_least_eat_num_philo  = UNSET;
 	if (argv[5] != NULL) {
 		data->at_least_eat_num_philo = data->num_philo;
 		data->at_least_eat_times = philo_atoi(argv[5]);

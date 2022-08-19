@@ -8,7 +8,7 @@ int8_t ft_thread_create(t_data *data, t_philo *philo) {
 		{
 			philo[j].id = j + 1;
 			philo[j].data = data;
-			philo[j].time_last_eat = -1;
+			philo[j].time_last_eat = UNSET;
 			philo[j].can_max_eat_times = data->at_least_eat_times;
 			if (pthread_create(&data->th_philo[j], NULL, ft_philosopher, &philo[j])
 			|| pthread_create(&data->th_monitor[j], NULL, ft_monitor, &philo[j]))

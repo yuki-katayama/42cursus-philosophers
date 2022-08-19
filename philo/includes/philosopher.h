@@ -18,6 +18,7 @@
 #define TIME_DIE_MIN 5
 #define TIME_EAT_MIN 1
 #define TIME_SLEEP_MIN 1
+#define UNSET -1
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
