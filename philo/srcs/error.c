@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/20 04:25:52 by kyuki             #+#    #+#             */
+/*   Updated: 2022/08/20 04:25:55 by kyuki            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosopher.h"
 
-int8_t	ft_error(int32_t errno) {
+int8_t	ft_error(int32_t errno)
+{
 	if (errno == E_INVALID_NUM_ARGUMENTS)
 		printf("Error: Invalid number of argumnets\n");
 	else if (errno == E_INVALID_ARGUMENT)

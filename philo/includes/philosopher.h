@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosopher.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/20 04:27:16 by kyuki             #+#    #+#             */
+/*   Updated: 2022/08/20 04:30:38 by kyuki            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILOSOPHER_H
-#　define PHILOSOPHER_H
+# define PHILOSOPHER_H
 
 # include <stdio.h> //printf
 # include <limits.h>
@@ -7,8 +19,8 @@
 
 # include <pthread.h> //pthread
 # include <unistd.h> //usleep
-# include <stdlib.h> //malloc
-# include <sys/time.h> //gettimeofday
+# include <stdlib.h> //malÓloc
+# include <sys/time.h> //gettimeofdayÓ
 # include <stdbool.h> //bool
 # include "libft.h"
 
@@ -37,13 +49,13 @@ enum	e_error {
 	E_PTHREAD_JOIN,
 };
 
-typedef enum	e_status {
+typedef enum e_status {
 	FORK = 1,
 	EAT,
 	SLEEP,
 	THINK,
 	DIED
-} t_status;
+}			t_status;
 
 typedef struct s_time
 {
@@ -52,7 +64,7 @@ typedef struct s_time
 	int64_t	time_sleep;
 }				t_time;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int8_t			died;
 	int32_t			num_philo;
@@ -80,7 +92,6 @@ typedef struct s_print {
 	t_status	status;
 }				t_print;
 
-
 //error
 int8_t	ft_error(int32_t errno);
 
@@ -97,7 +108,6 @@ int8_t	ft_thread_create(t_data *data, t_philo *philo);
 // utils
 int8_t	ft_usleep(int64_t time, t_philo *philo);
 int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)());
-int64_t	philo_atoi(const char *str);
 int64_t	ft_gettime(void);
 int8_t	is_died(t_philo *philo);
 

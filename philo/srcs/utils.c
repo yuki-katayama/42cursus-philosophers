@@ -1,29 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyuki <kyuki@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/20 04:25:29 by kyuki             #+#    #+#             */
+/*   Updated: 2022/08/20 04:30:14 by kyuki            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "philosopher.h"
-
-int64_t	philo_atoi(const char *str)
-{
-	int64_t	res;
-	int8_t	negative;
-
-	res = 0;
-	negative = 1;
-	while (*str == '\t' || *str == '\v' || *str == '\n' \
-		|| *str == '\r' || *str == '\f' || *str == ' ')
-		str++;
-	if (*str == '+')
-		str++;
-	if (!ft_isdigitstr((char *)str))
-		return (-1);
-	while (*str >= '0' && *str <= '9')
-	{
-		res = res * 10 + *str - '0';
-		str++;
-		if (res > (int64_t)INT_MIN * -1 && negative == -1)
-			return (0);
-	}
-	return ((int64_t)res);
-}
 
 int64_t	ft_gettime(void)
 {
@@ -57,7 +45,7 @@ int8_t	ft_usleep(int64_t time, t_philo *philo)
 
 int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)())
 {
-	int8_t ret;
+	int8_t	ret;
 
 	pthread_mutex_lock(m);
 	ret = func(arg);
@@ -67,10 +55,10 @@ int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)())
 
 static int8_t	return_died_var(t_philo *philo)
 {
-	return philo->data->died;
+	return (philo->data->died);
 }
 
-int8_t is_died(t_philo *philo)
+int8_t	is_died(t_philo *philo)
 {
 	return (do_mtx(philo, &philo->data->mtx_died, &return_died_var));
 }
