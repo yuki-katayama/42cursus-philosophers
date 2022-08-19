@@ -7,14 +7,13 @@ void *ft_philosopher(void *arg)
 	(void)arg;
 
 	philo = arg;
-	philo->time_last_eat = -1;
 	ft_init_forks(philo);
-	while(is_alive(philo)) {
+	while(continue_monitor(philo)) {
 		ft_take_fork(philo);
 		ft_eat(philo);
 		ft_down_fork(philo);
 		ft_sleep(philo);
-		ft_print_status(philo, THINK);
+		do_mtx(&(t_print){philo, THINK}, &philo->data->mtx_print_status, &ft_print_status);
 	}
 	return (NULL);
 }

@@ -9,13 +9,13 @@ int8_t ft_init_forks(t_philo *philo) {
 void ft_take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->mtx_left);
-	ft_print_status(philo, FORK);
+	do_mtx(&(t_print){philo, FORK}, &philo->data->mtx_print_status, &ft_print_status);
 	pthread_mutex_lock(philo->mtx_right);
-	ft_print_status(philo, FORK);
+	do_mtx(&(t_print){philo, FORK}, &philo->data->mtx_print_status, &ft_print_status);
 }
 
 void ft_down_fork(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->mtx_right);
 	pthread_mutex_unlock(philo->mtx_left);
+	pthread_mutex_unlock(philo->mtx_right);
 }

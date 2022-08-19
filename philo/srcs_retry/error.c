@@ -13,7 +13,10 @@ int8_t ft_error(int32_t errno) {
 		printf("Error: Can't work gettimeofday\n");
 	} else if (errno == E_USLEEP) {
 		printf("Error: Can't work usleep\n");
-
+	} else if (errno == E_PTHREAD_CREATE) {
+		printf("Error: Can't work pthread_create\n");
+	} else if (errno == E_PTHREAD_JOIN) {
+		printf("Error: Can't work pthread_join\n");
 	}
 	return (ERROR);
 }

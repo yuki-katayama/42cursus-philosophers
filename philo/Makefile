@@ -77,7 +77,7 @@ ifdef DEBUG
 				philosopher \
 				thread \
 				eat \
-				output \
+				print_status \
 				sleep \
 				monitor
 else
@@ -163,7 +163,7 @@ val	:
 
 .PHONY: debug
 debug: 
-	@-make -s -e DEBUG=1 SAN_AD=1
+	@-make -s -e DEBUG=1
 
 .PHONY: clean
 clean	: ## Remove object
