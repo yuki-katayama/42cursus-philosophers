@@ -1,4 +1,4 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
 
 int main(int argc, char **argv)
 {

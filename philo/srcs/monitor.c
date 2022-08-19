@@ -1,8 +1,27 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
+static int8_t is_expired_time(t_philo *philo)
+{
+	int64_t elapsed_time;
+
+	elapsed_time = ft_gettime() - philo->time_last_eat;
+	return (philo->time_last_eat != -1 && elapsed_time >= philo->data->action_time.time_die);
+}
+
+static int8_t is_expired_eat_times(t_philo *philo)
+{
+	if(philo->can_max_eat_times == 0 && philo->can_max_eat_times != -1) {
+		philo->data->at_least_eat_num_philo -= 1;
+		philo->can_max_eat_times -= 1;
+		if (philo->data->at_least_eat_num_philo == 0) {
+			return (1);
+		}
+	}
+	return (0);
+}
 
 int8_t check_died(t_philo *philo)
 {
-	if(is_died(philo)) {
+	if(is_expired_time(philo) || philo->data->died == 1 || is_expired_eat_times(philo)) {
 		do_mtx(&(t_print){philo, DIED}, &philo->data->mtx_print_status, &ft_print_status);
 		philo->data->died = 1;
 		return (1);

@@ -1,4 +1,4 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
 
 int8_t ft_thread_create(t_data *data, t_philo *philo) {
 	int8_t i = -1;

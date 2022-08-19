@@ -1,4 +1,4 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
 
 int8_t ft_error(int32_t errno) {
 	if (errno == E_INVALID_NUM_ARGUMENTS) {

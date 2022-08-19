@@ -1,4 +1,4 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
 
 void *ft_philosopher(void *arg)
 {

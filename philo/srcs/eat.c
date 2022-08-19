@@ -1,4 +1,4 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
 
 static int8_t ft_update_after_eat(t_philo *philo)
 {

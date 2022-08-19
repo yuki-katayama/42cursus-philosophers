@@ -1,4 +1,4 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
 
 static int8_t ft_init_arg(t_data *data, char **argv)
 {

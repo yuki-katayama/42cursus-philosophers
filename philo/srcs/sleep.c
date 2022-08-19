@@ -1,4 +1,4 @@
-#include "philosopher_retry.h"
+#include "philosopher.h"
 
 int8_t ft_sleep(t_philo *philo)
 {

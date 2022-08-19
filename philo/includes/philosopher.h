@@ -1,5 +1,5 @@
-#ifndef PHILOSOPHER_RETRY_H
-# define PHILOSOPHER_RETRY_H
+#ifndef PHILOSOPHER_H
+# define PHILOSOPHER_H
 
 # include <stdio.h> //printf
 # include <limits.h>
@@ -34,8 +34,6 @@ enum	e_error {
 	E_USLEEP,
 	E_PTHREAD_CREATE,
 	E_PTHREAD_JOIN,
-	// E_MUTEX_LOCK,
-	// E_MUTEX_UNLOCK,
 };
 
 typedef enum	e_status {
@@ -100,7 +98,6 @@ int8_t ft_usleep(int64_t time, t_philo *philo);
 int8_t	do_mtx(void *arg, pthread_mutex_t *m, int8_t (*func)());
 int64_t	philo_atoi(const char *str);
 int64_t	ft_gettime(void);
-int8_t is_died(t_philo *philo);
 
 // eat
 int8_t ft_eat(t_philo *philo);
