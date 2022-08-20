@@ -21,7 +21,8 @@ void	*ft_philosopher(void *arg)
 	while (!is_died(philo))
 	{
 		ft_take_fork(philo);
-		ft_eat(philo);
+		if (ft_eat(philo))
+			break ;
 		ft_down_fork(philo);
 		ft_sleep(philo);
 		do_mtx(&(t_print){philo, THINK}, &philo->data->mtx_print_status, \

@@ -115,8 +115,8 @@ int8_t	is_died(t_philo *philo);
 int8_t	ft_eat(t_philo *philo);
 
 // fork
-void	ft_take_fork(t_philo *philo);
 void	ft_down_fork(t_philo *philo);
+int8_t	ft_take_fork(t_philo *philo);
 int8_t	ft_init_forks(t_philo *philo);
 
 // eat
