@@ -12,6 +12,34 @@
 
 #include "philosopher.h"
 
+int8_t	print_eat(t_philo *philo)
+{
+	do_mtx(&(t_print){philo, EAT}, &philo->data->mtx_print_status, \
+		&ft_print_status);
+	return (0);
+}
+
+int8_t	print_fork(t_philo *philo)
+{
+	do_mtx(&(t_print){philo, FORK}, &philo->data->mtx_print_status, \
+		&ft_print_status);
+	return (0);
+}
+
+int8_t	print_sleep(t_philo *philo)
+{
+	do_mtx(&(t_print){philo, SLEEP}, &philo->data->mtx_print_status, \
+		&ft_print_status);
+	return (0);
+}
+
+int8_t	print_think(t_philo *philo)
+{
+	do_mtx(&(t_print){philo, THINK}, &philo->data->mtx_print_status, \
+		&ft_print_status);
+	return (0);
+}
+
 int8_t	ft_print_status(t_print *print_data)
 {
 	if (print_data->philo->data->died != 1)
