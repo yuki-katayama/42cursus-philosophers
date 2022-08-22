@@ -32,14 +32,11 @@ int8_t	ft_take_fork(t_philo *philo)
 	}
 	do_mtx(&(t_print){philo, FORK}, &philo->data->mtx_print_status, \
 		&ft_print_status);
-	philo->have_right = 1;
 	return (0);
 }
 
 void	ft_down_fork(t_philo *philo)
 {
-	if (philo->have_left == 1)
-		pthread_mutex_unlock(philo->mtx_left);
-	if (philo->have_right == 1)
-		pthread_mutex_unlock(philo->mtx_right);
+	pthread_mutex_unlock(philo->mtx_left);
+	pthread_mutex_unlock(philo->mtx_right);
 }

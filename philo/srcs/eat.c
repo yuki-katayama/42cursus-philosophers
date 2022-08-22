@@ -23,8 +23,7 @@ static int8_t	ft_update_after_eat(t_philo *philo)
 int8_t	ft_eat(t_philo *philo)
 {
 	do_mtx(philo, &philo->data->mtx_died, &ft_update_after_eat);
-	do_mtx(&(t_print){philo, EAT}, &philo->data->mtx_print_status, \
-		&ft_print_status);
+	do_mtx(philo, &philo->data->mtx_died, &print_eat);
 	if (ft_usleep(philo->data->action_time.time_eat, philo) == ERROR)
 	{
 		return (ERROR);

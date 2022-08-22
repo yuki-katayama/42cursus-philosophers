@@ -124,6 +124,10 @@ int8_t	ft_init_forks(t_philo *philo);
 int8_t	ft_sleep(t_philo *philo);
 
 //output
+int8_t	print_eat(t_philo *philo);
+int8_t	print_fork(t_philo *philo);
+int8_t	print_sleep(t_philo *philo);
+int8_t	print_think(t_philo *philo);
 int8_t	ft_print_status(t_print *print_data);
 
 //monitor

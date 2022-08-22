@@ -25,8 +25,7 @@ void	*ft_philosopher(void *arg)
 			break ;
 		ft_down_fork(philo);
 		ft_sleep(philo);
-		do_mtx(&(t_print){philo, THINK}, &philo->data->mtx_print_status, \
-			&ft_print_status);
+		do_mtx(philo, &philo->data->mtx_died, &print_think);
 	}
 	return (NULL);
 }
