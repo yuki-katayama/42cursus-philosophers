@@ -51,9 +51,12 @@ int8_t	ft_thread_end(t_data *data, t_philo *philo)
 			|| pthread_join(data->th_monitor[i], NULL))
 			return (ft_error(E_PTHREAD_JOIN));
 	}
+	if (pthread_mutex_destroy(&data->mtx_print_status)
+		|| pthread_mutex_destroy(&data->mtx_died))
+		return (ft_error(E_PTHREAD_DESTROY));
+	free(data->mtx_forks);
 	free(data->th_philo);
 	free(data->th_monitor);
-	free(data->mtx_forks);
 	free(philo);
 	return (0);
 }

@@ -30,5 +30,7 @@ int8_t	ft_error(int32_t errno)
 		printf("Error: Can't work pthread_create\n");
 	else if (errno == E_PTHREAD_JOIN)
 		printf("Error: Can't work pthread_join\n");
+	else if (errno == E_PTHREAD_DESTROY)
+		printf("Error: Can't work pthread_mutx_destroy\n");
 	return (ERROR);
 }
